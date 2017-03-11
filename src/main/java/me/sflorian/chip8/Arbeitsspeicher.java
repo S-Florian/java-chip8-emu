@@ -35,4 +35,24 @@ public class Arbeitsspeicher {
         if (!istGueltigeAddresse(addresse)) return;
         speicher[addresse] = neuerWert;
     }
+
+    public byte[] multiPeek(int addresse, int n) {
+        int anfang = addresse;
+        int ende = addresse + n;
+
+        if (!istGueltigeAddresse(anfang) || !istGueltigeAddresse(ende)) return null;
+
+        byte[] block = new byte[n];
+        System.arraycopy(speicher, anfang, block, 0, n);
+        return block;
+    }
+
+    public void multiPoke(int addresse, byte[] block) {
+        int anfang = addresse;
+        int ende = addresse + block.length;
+
+        if (!istGueltigeAddresse(anfang) || !istGueltigeAddresse(ende)) return;
+
+        System.arraycopy(block, 0, speicher, anfang, block.length);
+    }
 }

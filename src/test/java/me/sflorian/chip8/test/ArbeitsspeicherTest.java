@@ -19,6 +19,13 @@ public class ArbeitsspeicherTest {
     }
 
     @Test
+    public void multiPeekPokeTest() {
+        Arbeitsspeicher mem = new Arbeitsspeicher();
+        mem.multiPoke(0x0, new byte[] { 56, 39, 66 });
+        assertArrayEquals(new byte[] { 56, 39, 66 }, mem.multiPeek(0x0, 3));
+    }
+
+    @Test
     public void programmLadenTest() {
         Arbeitsspeicher mem = new Arbeitsspeicher();
         mem.programmLaden(new byte[] { 1, 2, 3, 4, 5 });
