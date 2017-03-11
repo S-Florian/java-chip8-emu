@@ -62,6 +62,10 @@ public class Prozessor {
         PC += 2; // Eine Anweisung ist 16-bit lang, also 2 bytes.
     }
 
+    public void springenZu(short addresse) {
+        PC = addresse;
+    }
+
     // Geben/Setzen Methoden
 
     public short naechstenOpCodeGeben() {

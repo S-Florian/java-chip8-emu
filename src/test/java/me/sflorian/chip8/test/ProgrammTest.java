@@ -60,4 +60,23 @@ public class ProgrammTest {
 
         assertEquals(0x85, (int) p.regVGeben(0xE) & 0xFF);
     }
+
+    public void sprungTest() {
+        byte[] programm = new ProgrammBuilder()
+            .mit(new RegisterSetzen(0x0, (byte)70))
+            .mit(new Sprung((short) (Arbeitsspeicher.CHIP8_AS_PROGRAMM_POSITION + 8)))
+            .mit(new RegisterSetzen(0x1, (byte)71))
+            .mit(new RegisterSetzen(0x2, (byte)72))
+            .mit(new RegisterSetzen(0x3, (byte)73))
+            .erstellen();
+
+        Prozessor p = new Prozessor(new Arbeitsspeicher());
+        p.programmLaden(programm);
+        p.programmAusfuehren();
+
+        assertEquals(70, (int) p.regVGeben(0x0) & 0xFF);
+        assertEquals(0, (int) p.regVGeben(0x1) & 0xFF);
+        assertEquals(0, (int) p.regVGeben(0x2) & 0xFF);
+        assertEquals(73, (int) p.regVGeben(0x3) & 0xFF);
+    }
 }

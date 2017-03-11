@@ -30,6 +30,14 @@ public abstract class Anweisung {
         return (byte) (b & 0x00FF);
     }
 
+    private static byte nb1(short b) {
+        return (byte) (b & 0xFFF0);
+    }
+
+    private static byte nb2(short b) {
+        return (byte) (b & 0x0FFF);
+    }
+
     public static Anweisung dekodieren(short opcode) {
         switch (n1(opcode)) {
             case 0x0: {
@@ -41,6 +49,7 @@ public abstract class Anweisung {
                 break;
             }
 
+            case 0x1: return new Sprung(nb2(opcode));
             case 0x3: return new VerzweigungKonstante(n2(opcode), b2(opcode), Bedingung.GLEICH);
             case 0x4: return new VerzweigungKonstante(n2(opcode), b2(opcode), Bedingung.UNGLEICH);
             case 0x5: return new VerzweigungRegister(n2(opcode), n3(opcode), Bedingung.GLEICH);
