@@ -27,9 +27,12 @@ public class ArbeitsspeicherTest {
 
     @Test
     public void programmLadenTest() {
-        Arbeitsspeicher mem = new Arbeitsspeicher();
-        mem.programmLaden(new byte[] { 1, 2, 3, 4, 5 });
+        byte[] testprogramm = new byte[] { 1, 2, 3, 4, 5 };
 
-        // TODO: Implementieren
+        Arbeitsspeicher mem = new Arbeitsspeicher();
+        mem.programmLaden(testprogramm);
+        byte[] b = mem.multiPeek(Arbeitsspeicher.CHIP8_AS_PROGRAMM_POSITION, testprogramm.length);
+        
+        assertArrayEquals(b, testprogramm);
     }
 }

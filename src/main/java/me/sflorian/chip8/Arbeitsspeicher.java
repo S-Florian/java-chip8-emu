@@ -15,11 +15,7 @@ public class Arbeitsspeicher {
     }
 
     public void programmLaden(byte[] programm) {
-        int anfang = CHIP8_AS_PROGRAMM_POSITION;
-        int ende = CHIP8_AS_PROGRAMM_POSITION + programm.length;
-
-        if (istGueltigeAddresse(anfang) && istGueltigeAddresse(ende))
-            System.arraycopy(programm, 0, speicher, anfang, programm.length);
+        multiPoke(CHIP8_AS_PROGRAMM_POSITION, programm);
     }
 
     public boolean istGueltigeAddresse(int addresse) {
@@ -51,8 +47,7 @@ public class Arbeitsspeicher {
         int anfang = addresse;
         int ende = addresse + block.length;
 
-        if (!istGueltigeAddresse(anfang) || !istGueltigeAddresse(ende)) return;
-
-        System.arraycopy(block, 0, speicher, anfang, block.length);
+        if (istGueltigeAddresse(anfang) && istGueltigeAddresse(ende))
+            System.arraycopy(block, 0, speicher, anfang, block.length);
     }
 }
