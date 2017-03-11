@@ -2,11 +2,11 @@ package me.sflorian.chip8.anweisungen;
 
 import me.sflorian.chip8.Prozessor;
 
-public class RegisterSetzen extends Anweisung {
+public class RegisterHinzufuegen extends Anweisung {
     private final int registerNummer;
     private final byte wert;
 
-    public RegisterSetzen(int registerNummer, byte wert) {
+    public RegisterHinzufuegen(int registerNummer, byte wert) {
         if (!Prozessor.istGueltigerRegisterIndex(registerNummer))
             throw new IllegalArgumentException("registerNummer muss zw. 0x0 und 0xF liegen (inklusiv)!");
 
@@ -16,11 +16,11 @@ public class RegisterSetzen extends Anweisung {
 
     @Override
     public void ausfuehren(Prozessor prozessor) {
-        prozessor.regVSetzen(registerNummer, wert);
+        prozessor.regVSetzen(registerNummer, (byte) (prozessor.regVGeben(registerNummer) + wert));
     }
 
     @Override
     public short enkodieren() {
-        return EnkodierungsHelfer._XNN(0x6, (byte)registerNummer, wert);
+        return EnkodierungsHelfer._XNN(0x7, (byte)registerNummer, wert);
     }
 }

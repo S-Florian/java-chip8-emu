@@ -23,6 +23,10 @@ public class Prozessor {
         mem = arbeitsspeicher;
     }
 
+    public static boolean istGueltigerRegisterIndex(int i) {
+        return i >= 0 && i < Prozessor.CHIP8_ANZAHL_V_REGISTER;
+    }
+
     public void programmLaden(byte[] programm) {
         programmLaden(programm, false);
     }
