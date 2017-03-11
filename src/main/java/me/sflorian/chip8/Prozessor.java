@@ -28,7 +28,7 @@ public class Prozessor {
     }
 
     public void programmLaden(byte[] programm) {
-        programmLaden(programm, false);
+        programmLaden(programm, true);
     }
 
     public void programmLaden(byte[] programm, boolean pcSetzen) {

@@ -43,6 +43,7 @@ public abstract class Anweisung {
 
             case 0x6: return new RegisterSetzen(n2(opcode), b2(opcode));
             case 0x7: return new RegisterHinzufuegen(n2(opcode), b2(opcode));
+            case 0x8: return new RegisterArithmetik(n2(opcode), n3(opcode), Operator.dekodieren(n4(opcode)));
         }
 
         return null;
