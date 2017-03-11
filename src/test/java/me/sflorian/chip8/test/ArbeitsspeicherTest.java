@@ -32,7 +32,7 @@ public class ArbeitsspeicherTest {
         Arbeitsspeicher mem = new Arbeitsspeicher();
         mem.programmLaden(testprogramm);
         byte[] b = mem.multiPeek(Arbeitsspeicher.CHIP8_AS_PROGRAMM_POSITION, testprogramm.length);
-        
+
         assertArrayEquals(b, testprogramm);
     }
 }

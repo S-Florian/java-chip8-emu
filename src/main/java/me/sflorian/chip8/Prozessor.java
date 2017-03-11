@@ -1,5 +1,11 @@
 package me.sflorian.chip8;
 
+import me.sflorian.chip8.anweisungen.Anweisung;
+
+/**
+ * Enthält Register, Arbeitsspeicher und CPU.
+ * Wird hauptsächlich durch CPU mutiert.
+ */
 public class Prozessor {
     public static final int CHIP8_AUFRUFSTAPEL_GROESSE = 16;
     public static final int CHIP8_ANZAHL_V_REGISTER = 16;
@@ -18,10 +24,45 @@ public class Prozessor {
     }
 
     public void programmLaden(byte[] programm) {
+        programmLaden(programm, false);
+    }
+
+    public void programmLaden(byte[] programm, boolean pcSetzen) {
         mem.programmLaden(programm);
+
+        if (pcSetzen)
+            PC = Arbeitsspeicher.CHIP8_AS_PROGRAMM_POSITION;
+    }
+
+    /**
+     * Führt einen Befehlszyklus aus, d.h. Anweisung holen, dekodieren, ausführen.
+     */
+    public boolean zyklus() {
+        Anweisung anweisung = naechsteAnweisungGeben();
+
+        if (anweisung == null)
+            return false;
+
+        anweisung.ausfuehren(this);
+        return true;
+    }
+
+    public void programmAusfuehren() {
+        while (zyklus());
     }
 
     // Geben/Setzen Methoden
+
+    public short naechstenOpCodeGeben() {
+        byte[] opBytes = mem.multiPeek(PC, 2);
+        short op = (short) ((opBytes[0] << 8) | opBytes[1]);
+        PC += 2; // Eine Anweisung ist 16-bit lang, also 2 bytes.
+        return op;
+    }
+
+    public Anweisung naechsteAnweisungGeben() {
+        return Anweisung.dekodieren(naechstenOpCodeGeben());
+    }
 
     public Arbeitsspeicher arbeitsspeicherGeben() {
         return mem;
