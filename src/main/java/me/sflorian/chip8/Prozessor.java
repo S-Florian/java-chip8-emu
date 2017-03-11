@@ -52,15 +52,21 @@ public class Prozessor {
     }
 
     public void programmAusfuehren() {
-        while (zyklus());
+        while (zyklus()) weiter();
+    }
+
+    /**
+     * Erhöht PC, sodass die nächste Anweisung ausgeführt wird.
+     */
+    public void weiter() {
+        PC += 2; // Eine Anweisung ist 16-bit lang, also 2 bytes.
     }
 
     // Geben/Setzen Methoden
 
     public short naechstenOpCodeGeben() {
         byte[] opBytes = mem.multiPeek(PC, 2);
-        short op = (short) ((opBytes[0] << 8) | opBytes[1]);
-        PC += 2; // Eine Anweisung ist 16-bit lang, also 2 bytes.
+        short op = (short) (((opBytes[0] & 0xFF) << 8) | (opBytes[1] & 0xFF));
         return op;
     }
 

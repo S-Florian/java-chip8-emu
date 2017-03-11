@@ -41,9 +41,13 @@ public abstract class Anweisung {
                 break;
             }
 
+            case 0x3: return new VerzweigungKonstante(n2(opcode), b2(opcode), Bedingung.GLEICH);
+            case 0x4: return new VerzweigungKonstante(n2(opcode), b2(opcode), Bedingung.UNGLEICH);
+            case 0x5: return new VerzweigungRegister(n2(opcode), n3(opcode), Bedingung.GLEICH);
             case 0x6: return new RegisterSetzen(n2(opcode), b2(opcode));
             case 0x7: return new RegisterHinzufuegen(n2(opcode), b2(opcode));
             case 0x8: return new RegisterArithmetik(n2(opcode), n3(opcode), Operator.dekodieren(n4(opcode)));
+            case 0x9: return new VerzweigungRegister(n2(opcode), n3(opcode), Bedingung.UNGLEICH);
         }
 
         return null;

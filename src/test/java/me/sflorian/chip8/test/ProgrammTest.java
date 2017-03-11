@@ -3,10 +3,7 @@ package me.sflorian.chip8.test;
 import me.sflorian.chip8.Arbeitsspeicher;
 import me.sflorian.chip8.ProgrammBuilder;
 import me.sflorian.chip8.Prozessor;
-import me.sflorian.chip8.anweisungen.Operator;
-import me.sflorian.chip8.anweisungen.RegisterArithmetik;
-import me.sflorian.chip8.anweisungen.RegisterHinzufuegen;
-import me.sflorian.chip8.anweisungen.RegisterSetzen;
+import me.sflorian.chip8.anweisungen.*;
 
 import org.junit.Test;
 import static org.junit.Assert.*;
@@ -45,5 +42,22 @@ public class ProgrammTest {
         p.programmAusfuehren();
 
         assertEquals(50, p.regVGeben(0x0));
+    }
+
+    @Test
+    public void bedingungsTest() {
+        byte[] programm = new ProgrammBuilder()
+            .mit(new RegisterSetzen(0x0, (byte)70))
+            .mit(new RegisterSetzen(0x1, (byte)30))
+            .mit(new RegisterArithmetik(0x0, 0x1, Operator.SUBTRAHIEREN))
+            .mit(new VerzweigungKonstante(0xF, (byte)1, Bedingung.UNGLEICH))
+            .mit(new RegisterSetzen(0xE, (byte)0x85))
+            .erstellen();
+
+        Prozessor p = new Prozessor(new Arbeitsspeicher());
+        p.programmLaden(programm);
+        p.programmAusfuehren();
+
+        assertEquals(0x85, (int) p.regVGeben(0xE) & 0xFF);
     }
 }
