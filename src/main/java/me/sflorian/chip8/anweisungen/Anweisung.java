@@ -42,6 +42,7 @@ public abstract class Anweisung {
             }
 
             case 0x6: return new RegisterSetzen(n2(opcode), b2(opcode));
+            case 0x7: return new RegisterHinzufuegen(n2(opcode), b2(opcode));
         }
 
         return null;
