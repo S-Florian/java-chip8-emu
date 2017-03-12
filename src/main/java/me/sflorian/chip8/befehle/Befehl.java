@@ -1,25 +1,25 @@
-package me.sflorian.chip8.anweisungen;
+package me.sflorian.chip8.befehle;
 
 import me.sflorian.chip8.Prozessor;
-import me.sflorian.chip8.anweisungen.ablauf.*;
-import me.sflorian.chip8.anweisungen.helfer.Bedingung;
-import me.sflorian.chip8.anweisungen.helfer.IOOperation;
-import me.sflorian.chip8.anweisungen.helfer.Operator;
-import me.sflorian.chip8.anweisungen.io.BildschirmLoeschen;
-import me.sflorian.chip8.anweisungen.io.IO;
-import me.sflorian.chip8.anweisungen.io.Zufallszahl;
-import me.sflorian.chip8.anweisungen.register.AddresseSetzen;
-import me.sflorian.chip8.anweisungen.register.RegisterArithmetik;
-import me.sflorian.chip8.anweisungen.register.RegisterHinzufuegen;
-import me.sflorian.chip8.anweisungen.register.RegisterSetzen;
+import me.sflorian.chip8.befehle.ablauf.*;
+import me.sflorian.chip8.befehle.helfer.Bedingung;
+import me.sflorian.chip8.befehle.helfer.IOOperation;
+import me.sflorian.chip8.befehle.helfer.Operator;
+import me.sflorian.chip8.befehle.io.BildschirmLoeschen;
+import me.sflorian.chip8.befehle.io.IO;
+import me.sflorian.chip8.befehle.io.Zufallszahl;
+import me.sflorian.chip8.befehle.register.AddresseSetzen;
+import me.sflorian.chip8.befehle.register.RegisterArithmetik;
+import me.sflorian.chip8.befehle.register.RegisterHinzufuegen;
+import me.sflorian.chip8.befehle.register.RegisterSetzen;
 
-import static me.sflorian.chip8.anweisungen.helfer.DekodierungsHelfer.*;
+import static me.sflorian.chip8.befehle.helfer.DekodierungsHelfer.*;
 
 /**
- * Repräsentiert eine CPU-Anweisung.
+ * Repräsentiert eine CPU-Befehl.
  */
-public abstract class Anweisung {
-    public static Anweisung dekodieren(short opcode) {
+public abstract class Befehl {
+    public static Befehl dekodieren(short opcode) {
         switch (opcode) {
             case 0x0000: return new Stopp();
             case 0x00E0: return new BildschirmLoeschen();

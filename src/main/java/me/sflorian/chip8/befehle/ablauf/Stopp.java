@@ -1,9 +1,9 @@
-package me.sflorian.chip8.anweisungen.ablauf;
+package me.sflorian.chip8.befehle.ablauf;
 
 import me.sflorian.chip8.Prozessor;
-import me.sflorian.chip8.anweisungen.Anweisung;
+import me.sflorian.chip8.befehle.Befehl;
 
-public class Stopp extends Anweisung {
+public class Stopp extends Befehl {
     @Override
     public void ausfuehren(Prozessor prozessor) {
 

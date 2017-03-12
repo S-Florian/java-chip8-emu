@@ -1,4 +1,4 @@
-package me.sflorian.chip8.anweisungen.helfer;
+package me.sflorian.chip8.befehle.helfer;
 
 public enum Operator {
     ZUWEISEN(0x0, "LD"),

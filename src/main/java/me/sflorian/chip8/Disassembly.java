@@ -1,6 +1,6 @@
 package me.sflorian.chip8;
 
-import me.sflorian.chip8.anweisungen.Anweisung;
+import me.sflorian.chip8.befehle.Befehl;
 
 public class Disassembly {
     public static String generieren(byte[] programm) {
@@ -14,8 +14,8 @@ public class Disassembly {
             byte b = programm[i + 1];
             short opcode = (short) (((a & 0xFF) << 8) | (b & 0xFF));
 
-            Anweisung anweisung = Anweisung.dekodieren(opcode);
-            sb.append(anweisung == null ? "???" : anweisung.alsAssembly());
+            Befehl befehl = Befehl.dekodieren(opcode);
+            sb.append(befehl == null ? "???" : befehl.alsAssembly());
             sb.append(nl);
         }
 

@@ -1,4 +1,4 @@
-package me.sflorian.chip8.anweisungen.helfer;
+package me.sflorian.chip8.befehle.helfer;
 
 public enum Bedingung {
     GLEICH("SE"), UNGLEICH("SNE");

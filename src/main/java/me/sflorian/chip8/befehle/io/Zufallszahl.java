@@ -1,12 +1,12 @@
-package me.sflorian.chip8.anweisungen.io;
+package me.sflorian.chip8.befehle.io;
 
 import me.sflorian.chip8.Prozessor;
-import me.sflorian.chip8.anweisungen.Anweisung;
-import me.sflorian.chip8.anweisungen.helfer.EnkodierungsHelfer;
+import me.sflorian.chip8.befehle.Befehl;
+import me.sflorian.chip8.befehle.helfer.EnkodierungsHelfer;
 
 import java.util.Random;
 
-public class Zufallszahl extends Anweisung {
+public class Zufallszahl extends Befehl {
     private static final Random random = new Random();
 
     private final int register;

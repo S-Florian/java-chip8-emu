@@ -1,10 +1,10 @@
-package me.sflorian.chip8.anweisungen.ablauf;
+package me.sflorian.chip8.befehle.ablauf;
 
 import me.sflorian.chip8.Prozessor;
-import me.sflorian.chip8.anweisungen.Anweisung;
-import me.sflorian.chip8.anweisungen.helfer.EnkodierungsHelfer;
+import me.sflorian.chip8.befehle.Befehl;
+import me.sflorian.chip8.befehle.helfer.EnkodierungsHelfer;
 
-public class Sprung extends Anweisung {
+public class Sprung extends Befehl {
     private final short addresse;
     private final boolean verschobenUmV0;
 

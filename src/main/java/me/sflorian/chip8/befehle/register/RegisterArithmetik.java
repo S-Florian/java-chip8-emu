@@ -1,11 +1,11 @@
-package me.sflorian.chip8.anweisungen.register;
+package me.sflorian.chip8.befehle.register;
 
 import me.sflorian.chip8.Prozessor;
-import me.sflorian.chip8.anweisungen.Anweisung;
-import me.sflorian.chip8.anweisungen.helfer.EnkodierungsHelfer;
-import me.sflorian.chip8.anweisungen.helfer.Operator;
+import me.sflorian.chip8.befehle.Befehl;
+import me.sflorian.chip8.befehle.helfer.EnkodierungsHelfer;
+import me.sflorian.chip8.befehle.helfer.Operator;
 
-public class RegisterArithmetik extends Anweisung {
+public class RegisterArithmetik extends Befehl {
     private final int registerA, registerB;
     private final Operator operator;
 

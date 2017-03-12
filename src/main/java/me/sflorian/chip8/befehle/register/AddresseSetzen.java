@@ -1,10 +1,10 @@
-package me.sflorian.chip8.anweisungen.register;
+package me.sflorian.chip8.befehle.register;
 
 import me.sflorian.chip8.Prozessor;
-import me.sflorian.chip8.anweisungen.Anweisung;
-import me.sflorian.chip8.anweisungen.helfer.EnkodierungsHelfer;
+import me.sflorian.chip8.befehle.Befehl;
+import me.sflorian.chip8.befehle.helfer.EnkodierungsHelfer;
 
-public class AddresseSetzen extends Anweisung {
+public class AddresseSetzen extends Befehl {
     private final short addresse;
 
     public AddresseSetzen(short addresse) {

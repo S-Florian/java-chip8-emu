@@ -1,11 +1,10 @@
 package me.sflorian.chip8;
 
-import me.sflorian.chip8.anweisungen.Anweisung;
-import me.sflorian.chip8.anweisungen.ablauf.Stopp;
+import me.sflorian.chip8.befehle.Befehl;
+import me.sflorian.chip8.befehle.ablauf.Stopp;
 
 /**
  * Enthält Register, Arbeitsspeicher und CPU.
- * Wird hauptsächlich durch CPU mutiert.
  */
 public class Prozessor {
     public static final int CHIP8_AUFRUFSTAPEL_GROESSE = 16;
@@ -16,7 +15,7 @@ public class Prozessor {
 
     // CPU-Register
     private byte[] V = new byte[CHIP8_ANZAHL_V_REGISTER]; // Die 16 allgemeinen Register, also V0-VF.
-    private short PC = 0; // Der Program Counter, also die Addresse der momentan ausgeführten Programmanweisung im Arbeitsspeicher.
+    private short PC = 0; // Der Program Counter, also die Addresse des momentan ausgeführten Programmbefehls im Arbeitsspeicher.
     private byte SP = 0; // Der Stack Pointer, die momentane Größe des Aufrufstapels.
     private short I = 0; // Addressierungs-Register
     private byte ST = 0; // Sound-Timer
@@ -43,15 +42,15 @@ public class Prozessor {
     }
 
     /**
-     * Führt einen Befehlszyklus aus, d.h. Anweisung holen, dekodieren, ausführen.
+     * Führt einen Befehlszyklus aus, d.h. Befehl holen, dekodieren, ausführen.
      */
     public boolean zyklus() {
-        Anweisung anweisung = naechsteAnweisungGeben();
+        Befehl befehl = naechstenBefehlGeben();
 
-        if (anweisung == null || anweisung instanceof Stopp)
+        if (befehl == null || befehl instanceof Stopp)
             return false;
 
-        anweisung.ausfuehren(this);
+        befehl.ausfuehren(this);
         return true;
     }
 
@@ -98,10 +97,10 @@ public class Prozessor {
     }
 
     /**
-     * Erhöht PC, sodass die nächste Anweisung ausgeführt wird.
+     * Erhöht PC, sodass die nächste Befehl ausgeführt wird.
      */
     public void weiter() {
-        PC += 2; // Eine Anweisung ist 16-bit lang, also 2 bytes.
+        PC += 2; // Eine Befehl ist 16-bit lang, also 2 bytes.
     }
 
     public void springenZu(short addresse) {
@@ -116,8 +115,8 @@ public class Prozessor {
         return op;
     }
 
-    public Anweisung naechsteAnweisungGeben() {
-        return Anweisung.dekodieren(naechstenOpCodeGeben());
+    public Befehl naechstenBefehlGeben() {
+        return Befehl.dekodieren(naechstenOpCodeGeben());
     }
 
     public Arbeitsspeicher arbeitsspeicherGeben() {

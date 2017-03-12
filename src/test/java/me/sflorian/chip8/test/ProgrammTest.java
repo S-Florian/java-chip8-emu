@@ -5,16 +5,16 @@ import me.sflorian.chip8.Disassembly;
 import me.sflorian.chip8.ProgrammBuilder;
 import me.sflorian.chip8.Prozessor;
 
-import me.sflorian.chip8.anweisungen.ablauf.*;
-import me.sflorian.chip8.anweisungen.helfer.Bedingung;
-import me.sflorian.chip8.anweisungen.helfer.IOOperation;
-import me.sflorian.chip8.anweisungen.helfer.Operator;
-import me.sflorian.chip8.anweisungen.io.IO;
-import me.sflorian.chip8.anweisungen.io.Zufallszahl;
-import me.sflorian.chip8.anweisungen.register.AddresseSetzen;
-import me.sflorian.chip8.anweisungen.register.RegisterArithmetik;
-import me.sflorian.chip8.anweisungen.register.RegisterHinzufuegen;
-import me.sflorian.chip8.anweisungen.register.RegisterSetzen;
+import me.sflorian.chip8.befehle.ablauf.*;
+import me.sflorian.chip8.befehle.helfer.Bedingung;
+import me.sflorian.chip8.befehle.helfer.IOOperation;
+import me.sflorian.chip8.befehle.helfer.Operator;
+import me.sflorian.chip8.befehle.io.IO;
+import me.sflorian.chip8.befehle.io.Zufallszahl;
+import me.sflorian.chip8.befehle.register.AddresseSetzen;
+import me.sflorian.chip8.befehle.register.RegisterArithmetik;
+import me.sflorian.chip8.befehle.register.RegisterHinzufuegen;
+import me.sflorian.chip8.befehle.register.RegisterSetzen;
 import org.junit.Test;
 
 import static org.junit.Assert.*;

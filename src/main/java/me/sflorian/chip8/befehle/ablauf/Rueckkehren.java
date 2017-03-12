@@ -1,9 +1,9 @@
-package me.sflorian.chip8.anweisungen.ablauf;
+package me.sflorian.chip8.befehle.ablauf;
 
 import me.sflorian.chip8.Prozessor;
-import me.sflorian.chip8.anweisungen.Anweisung;
+import me.sflorian.chip8.befehle.Befehl;
 
-public class Rueckkehren extends Anweisung {
+public class Rueckkehren extends Befehl {
     @Override
     public void ausfuehren(Prozessor p) {
         p.zurueckkehren();

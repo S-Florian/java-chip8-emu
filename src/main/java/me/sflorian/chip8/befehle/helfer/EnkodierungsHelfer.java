@@ -1,4 +1,4 @@
-package me.sflorian.chip8.anweisungen.helfer;
+package me.sflorian.chip8.befehle.helfer;
 
 public class EnkodierungsHelfer {
     public static short _XNN(int i, byte x, byte n) {

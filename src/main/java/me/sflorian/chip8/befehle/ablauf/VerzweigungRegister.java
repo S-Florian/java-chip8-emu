@@ -1,11 +1,11 @@
-package me.sflorian.chip8.anweisungen.ablauf;
+package me.sflorian.chip8.befehle.ablauf;
 
 import me.sflorian.chip8.Prozessor;
-import me.sflorian.chip8.anweisungen.Anweisung;
-import me.sflorian.chip8.anweisungen.helfer.Bedingung;
-import me.sflorian.chip8.anweisungen.helfer.EnkodierungsHelfer;
+import me.sflorian.chip8.befehle.Befehl;
+import me.sflorian.chip8.befehle.helfer.Bedingung;
+import me.sflorian.chip8.befehle.helfer.EnkodierungsHelfer;
 
-public class VerzweigungRegister extends Anweisung {
+public class VerzweigungRegister extends Befehl {
     private final int registerA, registerB;
     private final Bedingung bedingung;
 
