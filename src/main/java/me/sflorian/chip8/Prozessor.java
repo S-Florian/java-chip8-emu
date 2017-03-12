@@ -1,6 +1,7 @@
 package me.sflorian.chip8;
 
 import me.sflorian.chip8.anweisungen.Anweisung;
+import me.sflorian.chip8.anweisungen.Stopp;
 
 /**
  * Enthält Register, Arbeitsspeicher und CPU.
@@ -16,7 +17,7 @@ public class Prozessor {
     // CPU-Register
     private byte[] V = new byte[CHIP8_ANZAHL_V_REGISTER]; // Die 16 allgemeinen Register, also V0-VF.
     private short PC = 0; // Der Program Counter, also die Addresse der momentan ausgeführten Programmanweisung im Arbeitsspeicher.
-    private short SP = 0; // Der Stack Pointer, die momentane Größe des Aufrufstapels.
+    private byte SP = 0; // Der Stack Pointer, die momentane Größe des Aufrufstapels.
     private short I = 0; // Addressierungs-Register
     private byte ST = 0; // Sound-Timer
     private byte DT = 0; // Delay-Timer
@@ -47,7 +48,7 @@ public class Prozessor {
     public boolean zyklus() {
         Anweisung anweisung = naechsteAnweisungGeben();
 
-        if (anweisung == null)
+        if (anweisung == null || anweisung instanceof Stopp)
             return false;
 
         anweisung.ausfuehren(this);
@@ -56,6 +57,34 @@ public class Prozessor {
 
     public void programmAusfuehren() {
         while (zyklus()) weiter();
+    }
+
+    public boolean aufrufen(short addresse) {
+        if (SP >= aufrufstapel.length - 1)
+            return false; // Aufrufstapel ist voll!!
+
+        if (SP < 0)
+            SP = 0; // Sollte nicht geschehen, aber nur um sicherzustellen...
+
+        aufrufstapel[SP++] = PC;
+        springenZu((short) (addresse - 2));
+        return true;
+    }
+
+    public void zurueckkehren() {
+        // SP zeigt immer auf das Element nach dem letzten Element.
+        // Deshalb ist SP - 1 das letzte Element und SP - 2 das vorletzte
+        // Element, zu welchem wir springen wollen.
+
+        if (SP - 1 < 0)
+            return; // Wir können nirgendwo zurückkehren.
+
+        if (SP - 1 >= aufrufstapel.length)
+            return; // Kann passieren, wenn SP einen korrupten Wert hat.
+
+        short addresse = aufrufstapel[SP - 1];
+        springenZu(addresse);
+        SP--;
     }
 
     /**

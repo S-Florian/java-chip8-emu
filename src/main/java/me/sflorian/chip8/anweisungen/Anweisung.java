@@ -39,17 +39,15 @@ public abstract class Anweisung {
     }
 
     public static Anweisung dekodieren(short opcode) {
+        switch (opcode) {
+            case 0x0000: return new Stopp();
+            case 0x00E0: return new BildschirmLoeschen();
+            case 0x00EE: return new Rueckkehren();
+        }
+
         switch (n1(opcode)) {
-            case 0x0: {
-                switch ((int)opcode) {
-                    case 0x00E0: return new BildschirmLoeschen();
-                    case 0x00EE: break; // TODO
-                }
-
-                break;
-            }
-
             case 0x1: return new Sprung(nb2(opcode), false);
+            case 0x2: return new Aufrufen(nb2(opcode));
             case 0x3: return new VerzweigungKonstante(n2(opcode), b2(opcode), Bedingung.GLEICH);
             case 0x4: return new VerzweigungKonstante(n2(opcode), b2(opcode), Bedingung.UNGLEICH);
             case 0x5: return new VerzweigungRegister(n2(opcode), n3(opcode), Bedingung.GLEICH);

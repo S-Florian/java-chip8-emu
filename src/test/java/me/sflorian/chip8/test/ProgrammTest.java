@@ -6,10 +6,17 @@ import me.sflorian.chip8.Prozessor;
 import me.sflorian.chip8.anweisungen.*;
 
 import org.junit.Test;
+
+import java.util.Arrays;
+
 import static org.junit.Assert.*;
 
 public class ProgrammTest {
     private static Prozessor ausfuehren(byte[] programm) {
+        for (byte b : programm) {
+            System.out.print(Integer.toHexString((int)b & 0xFF) + "; ");
+        }
+
         Prozessor p = new Prozessor(new Arbeitsspeicher());
         p.programmLaden(programm);
         p.programmAusfuehren();
@@ -103,5 +110,26 @@ public class ProgrammTest {
         Prozessor p = ausfuehren(programm);
 
         System.out.println((int) p.regVGeben(0x1) & 0xFF);
+    }
+
+    @Test
+    public void funktionsTest() {
+        byte[] programm = new ProgrammBuilder()
+            .mit(new Aufrufen((short) (Arbeitsspeicher.CHIP8_AS_PROGRAMM_POSITION + 8)))
+            .mit(new Aufrufen((short) (Arbeitsspeicher.CHIP8_AS_PROGRAMM_POSITION + 8)))
+            .mit(new RegisterSetzen(0x3, (byte)1))
+            .mit(new Stopp())
+            .mit(new RegisterHinzufuegen(0x0, (byte)2))
+            .mit(new RegisterHinzufuegen(0x1, (byte)1))
+            .mit(new RegisterHinzufuegen(0x2, (byte)3))
+            .mit(new Rueckkehren())
+            .erstellen();
+
+        Prozessor p = ausfuehren(programm);
+
+        assertEquals((byte)4, p.regVGeben(0x0));
+        assertEquals((byte)2, p.regVGeben(0x1));
+        assertEquals((byte)6, p.regVGeben(0x2));
+        assertEquals((byte)1, p.regVGeben(0x3));
     }
 }
