@@ -95,4 +95,17 @@ public class ProgrammTest {
 
         assertEquals((short)52, p.regPCGeben());
     }
+
+    @Test
+    public void zufallszahlTest() {
+        byte[] programm = new ProgrammBuilder()
+            .mit(new Zufallszahl(0x1, (byte)0xFF))
+            .erstellen();
+
+        Prozessor p = new Prozessor(new Arbeitsspeicher());
+        p.programmLaden(programm);
+        p.programmAusfuehren();
+
+        System.out.println((int) p.regVGeben(0x1) & 0xFF);
+    }
 }
