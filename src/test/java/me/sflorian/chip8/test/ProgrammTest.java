@@ -167,4 +167,18 @@ public class ProgrammTest {
         assertEquals((byte)3, p.regVGeben(0x3));
         assertEquals((byte)4, p.regVGeben(0x4));
     }
+
+    @Test
+    public void bcdTest() {
+        byte[] programm = new ProgrammBuilder()
+            .mit(new RegisterSetzen(0x0, (byte)123))
+            .mit(new AddresseSetzen((short)0x3))
+            .mit(new IO(0x0, IOOperation.BCD_IN_I))
+            .erstellen();
+
+        Prozessor p = ausfuehren(programm);
+        Arbeitsspeicher mem = p.arbeitsspeicherGeben();
+
+        assertArrayEquals(new byte[] { 1, 2, 3 }, mem.multiPeek(0x3, 3));
+    }
 }
