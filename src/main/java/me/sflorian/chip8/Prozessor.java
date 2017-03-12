@@ -17,6 +17,9 @@ public class Prozessor {
     private byte[] V = new byte[CHIP8_ANZAHL_V_REGISTER]; // Die 16 allgemeinen Register, also V0-VF.
     private short PC = 0; // Der Program Counter, also die Addresse der momentan ausgeführten Programmanweisung im Arbeitsspeicher.
     private short SP = 0; // Der Stack Pointer, die momentane Größe des Aufrufstapels.
+    private short I = 0; // Addressierungs-Register
+    private byte ST = 0; // Sound-Timer
+    private byte DT = 0; // Delay-Timer
 
     public Prozessor(Arbeitsspeicher arbeitsspeicher) {
         if (arbeitsspeicher == null) throw new IllegalArgumentException("arbeitsspeicher darf nicht null sein!");
@@ -94,6 +97,18 @@ public class Prozessor {
         return SP;
     }
 
+    public short regIGeben() {
+        return I;
+    }
+
+    public short regSTGeben() {
+        return ST;
+    }
+
+    public short regDTGeben() {
+        return DT;
+    }
+
     public void regVSetzen(int i, byte j) {
         if (i < V.length && i >= 0) V[i] = j;
     }
@@ -104,5 +119,17 @@ public class Prozessor {
 
     public void regSPSetzen(byte i) {
         SP = i;
+    }
+
+    public void regISetzen(short i) {
+        I = i;
+    }
+
+    public void regSTSetzen(byte i) {
+        ST = i;
+    }
+
+    public void regDTSetzen(byte i) {
+        DT = i;
     }
 }

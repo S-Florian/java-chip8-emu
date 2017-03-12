@@ -30,12 +30,12 @@ public abstract class Anweisung {
         return (byte) (b & 0x00FF);
     }
 
-    private static byte nb1(short b) {
-        return (byte) (b & 0xFFF0);
+    private static short nb1(short b) {
+        return (short) ((b & 0xFFF0) >> 4);
     }
 
-    private static byte nb2(short b) {
-        return (byte) (b & 0x0FFF);
+    private static short nb2(short b) {
+        return (short) (b & 0x0FFF);
     }
 
     public static Anweisung dekodieren(short opcode) {
@@ -57,6 +57,7 @@ public abstract class Anweisung {
             case 0x7: return new RegisterHinzufuegen(n2(opcode), b2(opcode));
             case 0x8: return new RegisterArithmetik(n2(opcode), n3(opcode), Operator.dekodieren(n4(opcode)));
             case 0x9: return new VerzweigungRegister(n2(opcode), n3(opcode), Bedingung.UNGLEICH);
+            case 0xA: return new AddresseSetzen(nb2(opcode));
         }
 
         return null;

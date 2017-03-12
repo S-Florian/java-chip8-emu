@@ -22,9 +22,8 @@ public enum Operator {
     }
 
     public static Operator dekodieren(byte b) {
-        for (Operator op : Operator.values()) {
+        for (Operator op : Operator.values())
             if (b == op.nummer) return op;
-        }
 
         return null;
     }

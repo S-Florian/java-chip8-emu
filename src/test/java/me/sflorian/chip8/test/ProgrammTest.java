@@ -16,6 +16,7 @@ public class ProgrammTest {
             .mit(new RegisterSetzen(0x1, (byte)66))
             .mit(new RegisterSetzen(0xF, (byte)88))
             .mit(new RegisterHinzufuegen(0xF, (byte)12))
+            .mit(new AddresseSetzen((short) 0x200))
             .erstellen();
 
         Prozessor p = new Prozessor(new Arbeitsspeicher());
@@ -25,6 +26,7 @@ public class ProgrammTest {
         assertEquals((byte)42, p.regVGeben(0x0));
         assertEquals((byte)66, p.regVGeben(0x1));
         assertEquals((byte)100, p.regVGeben(0xF));
+        assertEquals((short) 0x200, p.regIGeben());
     }
 
     @Test
