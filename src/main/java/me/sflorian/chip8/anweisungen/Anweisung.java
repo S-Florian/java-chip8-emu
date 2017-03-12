@@ -49,7 +49,7 @@ public abstract class Anweisung {
                 break;
             }
 
-            case 0x1: return new Sprung(nb2(opcode));
+            case 0x1: return new Sprung(nb2(opcode), false);
             case 0x3: return new VerzweigungKonstante(n2(opcode), b2(opcode), Bedingung.GLEICH);
             case 0x4: return new VerzweigungKonstante(n2(opcode), b2(opcode), Bedingung.UNGLEICH);
             case 0x5: return new VerzweigungRegister(n2(opcode), n3(opcode), Bedingung.GLEICH);
@@ -58,6 +58,7 @@ public abstract class Anweisung {
             case 0x8: return new RegisterArithmetik(n2(opcode), n3(opcode), Operator.dekodieren(n4(opcode)));
             case 0x9: return new VerzweigungRegister(n2(opcode), n3(opcode), Bedingung.UNGLEICH);
             case 0xA: return new AddresseSetzen(nb2(opcode));
+            case 0xB: return new Sprung(nb2(opcode), true);
         }
 
         return null;

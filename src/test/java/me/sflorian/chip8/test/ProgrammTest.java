@@ -26,7 +26,7 @@ public class ProgrammTest {
         assertEquals((byte)42, p.regVGeben(0x0));
         assertEquals((byte)66, p.regVGeben(0x1));
         assertEquals((byte)100, p.regVGeben(0xF));
-        assertEquals((short) 0x200, p.regIGeben());
+        assertEquals((short)0x200, p.regIGeben());
     }
 
     @Test
@@ -80,5 +80,19 @@ public class ProgrammTest {
         assertEquals(0, (int) p.regVGeben(0x1) & 0xFF);
         assertEquals(0, (int) p.regVGeben(0x2) & 0xFF);
         assertEquals(73, (int) p.regVGeben(0x3) & 0xFF);
+    }
+
+    @Test
+    public void sprungVerschobenTest() {
+        byte[] programm = new ProgrammBuilder()
+            .mit(new RegisterSetzen(0x0, (byte)20))
+            .mit(new Sprung((short) 30, true))
+            .erstellen();
+
+        Prozessor p = new Prozessor(new Arbeitsspeicher());
+        p.programmLaden(programm);
+        p.programmAusfuehren();
+
+        assertEquals((short)52, p.regPCGeben());
     }
 }
