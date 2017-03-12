@@ -2,42 +2,12 @@ package me.sflorian.chip8.anweisungen;
 
 import me.sflorian.chip8.Prozessor;
 
+import static me.sflorian.chip8.anweisungen.DekodierungsHelfer.*;
+
 /**
  * Repräsentiert eine CPU-Anweisung.
  */
 public abstract class Anweisung {
-    private static byte n1(short b) {
-        return (byte) ((b & 0xF000) >> 12);
-    }
-
-    private static byte n2(short b) {
-        return (byte) ((b & 0x0F00) >> 8);
-    }
-
-    private static byte n3(short b) {
-        return (byte) ((b & 0x00F0) >> 4);
-    }
-
-    private static byte n4(short b) {
-        return (byte) (b & 0x000F);
-    }
-
-    private static byte b1(short b) {
-        return (byte) ((b & 0xFF00) >> 8);
-    }
-
-    private static byte b2(short b) {
-        return (byte) (b & 0x00FF);
-    }
-
-    private static short nb1(short b) {
-        return (short) ((b & 0xFFF0) >> 4);
-    }
-
-    private static short nb2(short b) {
-        return (short) (b & 0x0FFF);
-    }
-
     public static Anweisung dekodieren(short opcode) {
         switch (opcode) {
             case 0x0000: return new Stopp();
