@@ -9,6 +9,14 @@ import org.junit.Test;
 import static org.junit.Assert.*;
 
 public class ProgrammTest {
+    private static Prozessor ausfuehren(byte[] programm) {
+        Prozessor p = new Prozessor(new Arbeitsspeicher());
+        p.programmLaden(programm);
+        p.programmAusfuehren();
+
+        return p;
+    }
+
     @Test
     public void registerManipulationTest() {
         byte[] programm = new ProgrammBuilder()
@@ -19,9 +27,7 @@ public class ProgrammTest {
             .mit(new AddresseSetzen((short) 0x200))
             .erstellen();
 
-        Prozessor p = new Prozessor(new Arbeitsspeicher());
-        p.programmLaden(programm);
-        p.programmAusfuehren();
+        Prozessor p = ausfuehren(programm);
 
         assertEquals((byte)42, p.regVGeben(0x0));
         assertEquals((byte)66, p.regVGeben(0x1));
@@ -39,9 +45,7 @@ public class ProgrammTest {
             .mit(new RegisterArithmetik(0x0, 0x1, Operator.SUBTRAHIEREN))
             .erstellen();
 
-        Prozessor p = new Prozessor(new Arbeitsspeicher());
-        p.programmLaden(programm);
-        p.programmAusfuehren();
+        Prozessor p = ausfuehren(programm);
 
         assertEquals(50, p.regVGeben(0x0));
     }
@@ -56,9 +60,7 @@ public class ProgrammTest {
             .mit(new RegisterSetzen(0xE, (byte)0x85))
             .erstellen();
 
-        Prozessor p = new Prozessor(new Arbeitsspeicher());
-        p.programmLaden(programm);
-        p.programmAusfuehren();
+        Prozessor p = ausfuehren(programm);
 
         assertEquals(0x85, (int) p.regVGeben(0xE) & 0xFF);
     }
@@ -72,9 +74,7 @@ public class ProgrammTest {
             .mit(new RegisterSetzen(0x3, (byte)73))
             .erstellen();
 
-        Prozessor p = new Prozessor(new Arbeitsspeicher());
-        p.programmLaden(programm);
-        p.programmAusfuehren();
+        Prozessor p = ausfuehren(programm);
 
         assertEquals(70, (int) p.regVGeben(0x0) & 0xFF);
         assertEquals(0, (int) p.regVGeben(0x1) & 0xFF);
@@ -89,9 +89,7 @@ public class ProgrammTest {
             .mit(new Sprung((short) 30, true))
             .erstellen();
 
-        Prozessor p = new Prozessor(new Arbeitsspeicher());
-        p.programmLaden(programm);
-        p.programmAusfuehren();
+        Prozessor p = ausfuehren(programm);
 
         assertEquals((short)52, p.regPCGeben());
     }
@@ -102,9 +100,7 @@ public class ProgrammTest {
             .mit(new Zufallszahl(0x1, (byte)0xFF))
             .erstellen();
 
-        Prozessor p = new Prozessor(new Arbeitsspeicher());
-        p.programmLaden(programm);
-        p.programmAusfuehren();
+        Prozessor p = ausfuehren(programm);
 
         System.out.println((int) p.regVGeben(0x1) & 0xFF);
     }
