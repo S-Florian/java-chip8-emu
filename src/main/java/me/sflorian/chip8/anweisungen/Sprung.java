@@ -32,6 +32,9 @@ public class Sprung extends Anweisung {
 
     @Override
     public String alsAssembly() {
-        return String.format("JMP $%04X", addresse);
+        if (verschobenUmV0)
+            return String.format("JP V0, $%04X", addresse);
+        else
+            return String.format("JP $%04X", addresse);
     }
 }
