@@ -12,4 +12,9 @@ public class Stopp extends Anweisung {
     public short enkodieren() {
         return 0x0000;
     }
+
+    @Override
+    public String alsAssembly() {
+        return "STOP";
+    }
 }

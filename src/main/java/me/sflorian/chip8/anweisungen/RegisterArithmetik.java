@@ -62,4 +62,15 @@ public class RegisterArithmetik extends Anweisung {
     public short enkodieren() {
         return EnkodierungsHelfer._XY_(0x8, (byte)registerA, (byte)registerB, operator.nummerGeben());
     }
+
+    @Override
+    public String alsAssembly() {
+        switch (operator) {
+            case SHIFTL_1: return String.format("SHL V%1X", registerA);
+            case SHIFTR_1: return String.format("SHR V%1X", registerB);
+            default:
+                return String.format("%s V%1X, V%1X", operator.nameGeben(), registerA, registerB);
+        }
+
+    }
 }

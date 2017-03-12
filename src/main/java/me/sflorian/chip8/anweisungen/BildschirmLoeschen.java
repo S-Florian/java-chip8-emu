@@ -12,4 +12,9 @@ public class BildschirmLoeschen extends Anweisung {
     public short enkodieren() {
         return 0x00E0;
     }
+
+    @Override
+    public String alsAssembly() {
+        return "CLS";
+    }
 }

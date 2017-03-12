@@ -67,6 +67,8 @@ public abstract class Anweisung {
 
     public abstract short enkodieren();
 
+    public abstract String alsAssembly();
+
     @Override
     public int hashCode() {
         return enkodieren();
@@ -78,4 +80,5 @@ public abstract class Anweisung {
                 getClass().getSimpleName(),
                 "0x" + Integer.toHexString(enkodieren()));
     }
+
 }

@@ -12,4 +12,9 @@ public class Rueckkehren extends Anweisung {
     public short enkodieren() {
         return 0x00EE;
     }
+
+    @Override
+    public String alsAssembly() {
+        return "RET";
+    }
 }

@@ -1,6 +1,7 @@
 package me.sflorian.chip8.test;
 
 import me.sflorian.chip8.Arbeitsspeicher;
+import me.sflorian.chip8.Disassembly;
 import me.sflorian.chip8.ProgrammBuilder;
 import me.sflorian.chip8.Prozessor;
 import me.sflorian.chip8.anweisungen.*;
@@ -16,6 +17,9 @@ public class ProgrammTest {
         for (byte b : programm) {
             System.out.print(Integer.toHexString((int)b & 0xFF) + "; ");
         }
+
+        System.out.println();
+        System.out.println(Disassembly.generieren(programm));
 
         Prozessor p = new Prozessor(new Arbeitsspeicher());
         p.programmLaden(programm);

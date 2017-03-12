@@ -18,4 +18,9 @@ public class AddresseSetzen extends Anweisung {
     public short enkodieren() {
         return EnkodierungsHelfer._NNN(0xA, addresse);
     }
+
+    @Override
+    public String alsAssembly() {
+        return String.format("LD I, $%04X", addresse);
+    }
 }

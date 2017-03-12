@@ -23,4 +23,9 @@ public class RegisterSetzen extends Anweisung {
     public short enkodieren() {
         return EnkodierungsHelfer._XNN(0x6, (byte)registerNummer, wert);
     }
+
+    @Override
+    public String alsAssembly() {
+        return String.format("LD V%1X, %d", registerNummer, (int)wert & 0xFF);
+    }
 }

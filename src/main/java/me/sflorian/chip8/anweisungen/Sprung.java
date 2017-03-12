@@ -29,4 +29,9 @@ public class Sprung extends Anweisung {
     public short enkodieren() {
         return EnkodierungsHelfer._NNN(verschobenUmV0 ? 0xB : 0x1, addresse);
     }
+
+    @Override
+    public String alsAssembly() {
+        return String.format("JMP $%04X", addresse);
+    }
 }

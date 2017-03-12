@@ -29,4 +29,9 @@ public class Zufallszahl extends Anweisung {
     public short enkodieren() {
         return EnkodierungsHelfer._XNN(0xC, (byte)register, maske);
     }
+
+    @Override
+    public String alsAssembly() {
+        return String.format("RND V%1X, $%02X", register, (int)maske & 0xFF);
+    }
 }

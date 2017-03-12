@@ -56,4 +56,9 @@ public class VerzweigungRegister extends Anweisung {
 
         return EnkodierungsHelfer._XY_(i, (byte)registerA, (byte)registerB, 0);
     }
+
+    @Override
+    public String alsAssembly() {
+        return String.format("%s V%1X, V%1X", bedingung.nameGeben(), registerA, registerB);
+    }
 }

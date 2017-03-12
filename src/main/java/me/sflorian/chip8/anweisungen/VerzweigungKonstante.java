@@ -54,4 +54,9 @@ public class VerzweigungKonstante extends Anweisung {
 
         return EnkodierungsHelfer._XNN(i, (byte)register, wert);
     }
+
+    @Override
+    public String alsAssembly() {
+        return String.format("%s V%1X, %d", bedingung.nameGeben(), register, (int)wert & 0xFF);
+    }
 }

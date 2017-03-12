@@ -23,4 +23,9 @@ public class RegisterHinzufuegen extends Anweisung {
     public short enkodieren() {
         return EnkodierungsHelfer._XNN(0x7, (byte)registerNummer, wert);
     }
+
+    @Override
+    public String alsAssembly() {
+        return String.format("ADD V%1X, %d", registerNummer, (int)wert & 0xFF);
+    }
 }

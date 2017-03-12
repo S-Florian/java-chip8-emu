@@ -18,4 +18,9 @@ public class Aufrufen extends Anweisung {
     public short enkodieren() {
         return EnkodierungsHelfer._NNN(0x2, addresse);
     }
+
+    @Override
+    public String alsAssembly() {
+        return String.format("CALL $%04X", addresse);
+    }
 }

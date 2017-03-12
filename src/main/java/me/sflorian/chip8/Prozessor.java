@@ -72,10 +72,6 @@ public class Prozessor {
     }
 
     public void zurueckkehren() {
-        // SP zeigt immer auf das Element nach dem letzten Element.
-        // Deshalb ist SP - 1 das letzte Element und SP - 2 das vorletzte
-        // Element, zu welchem wir springen wollen.
-
         if (SP - 1 < 0)
             return; // Wir können nirgendwo zurückkehren.
 
