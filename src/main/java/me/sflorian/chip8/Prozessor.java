@@ -83,6 +83,20 @@ public class Prozessor {
         SP--;
     }
 
+    public void registerSpeichern(int anfang, int ende, short addresse) {
+        int laenge = ende - anfang + 1;
+
+        if (mem.istGueltigeAddresse(addresse) && mem.istGueltigeAddresse(addresse + laenge))
+            System.arraycopy(V, anfang, mem.speicher, addresse, laenge);
+    }
+
+    public void registerLaden(int anfang, int ende, short addresse) {
+        int laenge = ende - anfang + 1;
+
+        if (mem.istGueltigeAddresse(addresse) && mem.istGueltigeAddresse(addresse + laenge))
+            System.arraycopy(mem.speicher, addresse, V, anfang, laenge);
+    }
+
     /**
      * Erhöht PC, sodass die nächste Anweisung ausgeführt wird.
      */
@@ -126,11 +140,11 @@ public class Prozessor {
         return I;
     }
 
-    public short regSTGeben() {
+    public byte regSTGeben() {
         return ST;
     }
 
-    public short regDTGeben() {
+    public byte regDTGeben() {
         return DT;
     }
 

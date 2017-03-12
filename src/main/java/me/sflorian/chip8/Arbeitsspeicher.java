@@ -7,7 +7,7 @@ public class Arbeitsspeicher {
     public static final int CHIP8_ARBEITSSPEICHER_GROESSE = 4096; // 4096 bytes = 4 KB
     public static final int CHIP8_AS_PROGRAMM_POSITION = 0x200;
 
-    private byte[] speicher;
+    protected byte[] speicher;
 
     public Arbeitsspeicher() {
         this(CHIP8_ARBEITSSPEICHER_GROESSE);

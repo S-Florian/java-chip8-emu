@@ -136,4 +136,35 @@ public class ProgrammTest {
         assertEquals((byte)6, p.regVGeben(0x2));
         assertEquals((byte)1, p.regVGeben(0x3));
     }
+
+    @Test
+    public void registerSpeichernUndLadenTest() {
+        byte[] programm = new ProgrammBuilder()
+            .mit(new RegisterSetzen(0x5, (byte)16))
+            .mit(new IO(0x5, IOOperation.ZU_I_HINZUFUEGEN))
+            .mit(new RegisterSetzen(0x0, (byte)0))
+            .mit(new RegisterSetzen(0x1, (byte)1))
+            .mit(new RegisterSetzen(0x2, (byte)2))
+            .mit(new RegisterSetzen(0x3, (byte)3))
+            .mit(new RegisterSetzen(0x4, (byte)4))
+            .mit(new IO(0x4, IOOperation.AS_SPEICHERN))
+            .mit(new RegisterSetzen(0x0, (byte)0))
+            .mit(new RegisterSetzen(0x1, (byte)0))
+            .mit(new RegisterSetzen(0x2, (byte)0))
+            .mit(new RegisterSetzen(0x3, (byte)0))
+            .mit(new RegisterSetzen(0x4, (byte)0))
+            .mit(new IO(0x4, IOOperation.AS_LADEN))
+            .erstellen();
+
+        Prozessor p = ausfuehren(programm);
+        Arbeitsspeicher mem = p.arbeitsspeicherGeben();
+
+        assertEquals((short)16, p.regIGeben());
+        assertArrayEquals(new byte[] { 0, 1, 2, 3, 4 }, mem.multiPeek((short)16, 5));
+        assertEquals((byte)0, p.regVGeben(0x0));
+        assertEquals((byte)1, p.regVGeben(0x1));
+        assertEquals((byte)2, p.regVGeben(0x2));
+        assertEquals((byte)3, p.regVGeben(0x3));
+        assertEquals((byte)4, p.regVGeben(0x4));
+    }
 }

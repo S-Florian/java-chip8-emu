@@ -58,6 +58,7 @@ public abstract class Anweisung {
             case 0xA: return new AddresseSetzen(nb2(opcode));
             case 0xB: return new Sprung(nb2(opcode), true);
             case 0xC: return new Zufallszahl(n2(opcode), b2(opcode));
+            case 0xF: return new IO(n2(opcode), IOOperation.dekodieren(b2(opcode)));
         }
 
         return null;
