@@ -1,8 +1,19 @@
 package me.sflorian.chip8.anweisungen;
 
 import me.sflorian.chip8.Prozessor;
+import me.sflorian.chip8.anweisungen.ablauf.*;
+import me.sflorian.chip8.anweisungen.helfer.Bedingung;
+import me.sflorian.chip8.anweisungen.helfer.IOOperation;
+import me.sflorian.chip8.anweisungen.helfer.Operator;
+import me.sflorian.chip8.anweisungen.io.BildschirmLoeschen;
+import me.sflorian.chip8.anweisungen.io.IO;
+import me.sflorian.chip8.anweisungen.io.Zufallszahl;
+import me.sflorian.chip8.anweisungen.register.AddresseSetzen;
+import me.sflorian.chip8.anweisungen.register.RegisterArithmetik;
+import me.sflorian.chip8.anweisungen.register.RegisterHinzufuegen;
+import me.sflorian.chip8.anweisungen.register.RegisterSetzen;
 
-import static me.sflorian.chip8.anweisungen.DekodierungsHelfer.*;
+import static me.sflorian.chip8.anweisungen.helfer.DekodierungsHelfer.*;
 
 /**
  * Repräsentiert eine CPU-Anweisung.

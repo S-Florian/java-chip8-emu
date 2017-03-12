@@ -1,6 +1,7 @@
-package me.sflorian.chip8.anweisungen;
+package me.sflorian.chip8.anweisungen.io;
 
 import me.sflorian.chip8.Prozessor;
+import me.sflorian.chip8.anweisungen.Anweisung;
 
 public class BildschirmLoeschen extends Anweisung {
     @Override

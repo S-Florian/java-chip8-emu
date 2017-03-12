@@ -1,7 +1,10 @@
-package me.sflorian.chip8.anweisungen;
+package me.sflorian.chip8.anweisungen.io;
 
 import me.sflorian.chip8.Arbeitsspeicher;
 import me.sflorian.chip8.Prozessor;
+import me.sflorian.chip8.anweisungen.Anweisung;
+import me.sflorian.chip8.anweisungen.helfer.EnkodierungsHelfer;
+import me.sflorian.chip8.anweisungen.helfer.IOOperation;
 
 public class IO extends Anweisung {
     private final int register;

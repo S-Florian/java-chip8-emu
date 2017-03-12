@@ -1,6 +1,8 @@
-package me.sflorian.chip8.anweisungen;
+package me.sflorian.chip8.anweisungen.ablauf;
 
 import me.sflorian.chip8.Prozessor;
+import me.sflorian.chip8.anweisungen.Anweisung;
+import me.sflorian.chip8.anweisungen.helfer.EnkodierungsHelfer;
 
 public class Aufrufen extends Anweisung {
     private final short addresse;

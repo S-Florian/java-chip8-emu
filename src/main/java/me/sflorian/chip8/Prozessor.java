@@ -1,7 +1,7 @@
 package me.sflorian.chip8;
 
 import me.sflorian.chip8.anweisungen.Anweisung;
-import me.sflorian.chip8.anweisungen.Stopp;
+import me.sflorian.chip8.anweisungen.ablauf.Stopp;
 
 /**
  * Enthält Register, Arbeitsspeicher und CPU.

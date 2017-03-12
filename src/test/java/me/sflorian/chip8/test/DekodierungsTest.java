@@ -1,6 +1,6 @@
 package me.sflorian.chip8.test;
 
-import me.sflorian.chip8.anweisungen.DekodierungsHelfer;
+import me.sflorian.chip8.anweisungen.helfer.DekodierungsHelfer;
 import org.junit.Test;
 import static org.junit.Assert.*;
 

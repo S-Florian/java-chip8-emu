@@ -1,4 +1,4 @@
-package me.sflorian.chip8.anweisungen;
+package me.sflorian.chip8.anweisungen.helfer;
 
 public class DekodierungsHelfer {
     public static byte n1(short b) {

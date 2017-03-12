@@ -1,4 +1,4 @@
-package me.sflorian.chip8.anweisungen;
+package me.sflorian.chip8.anweisungen.helfer;
 
 public enum IOOperation {
     DT_ABFRAGEN(0x07, "LD V%1X, DT"),
