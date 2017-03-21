@@ -21,9 +21,17 @@ public class Prozessor {
     private byte ST = 0; // Sound-Timer
     private byte DT = 0; // Delay-Timer
 
-    public Prozessor(Arbeitsspeicher arbeitsspeicher) {
+    private Display display;
+
+    public Prozessor(Arbeitsspeicher arbeitsspeicher, Display display) {
         if (arbeitsspeicher == null) throw new IllegalArgumentException("arbeitsspeicher darf nicht null sein!");
         mem = arbeitsspeicher;
+
+        this.display = display;
+    }
+
+    public Prozessor(Arbeitsspeicher arbeitsspeicher) {
+        this(arbeitsspeicher, null);
     }
 
     public static boolean istGueltigerRegisterIndex(int i) {
@@ -121,6 +129,10 @@ public class Prozessor {
 
     public Arbeitsspeicher arbeitsspeicherGeben() {
         return mem;
+    }
+
+    public Display displayGeben() {
+        return display;
     }
 
     public byte regVGeben(int i) {
