@@ -35,8 +35,8 @@ public class Zeichnen extends Befehl {
 
             for (int x = 0; x < 8; ++x) {
                 if ((reihe & 0x80) > 0) {
-                    int ix = x % DISPLAY_BREITE;
-                    int iy = y % DISPLAY_HOEHE;
+                    int ix = (this.x + x) % DISPLAY_BREITE;
+                    int iy = (this.y + y) % DISPLAY_HOEHE;
 
                     boolean pixel = d.pixelGeben(ix, iy);
                     boolean neuerPixel = !pixel;
