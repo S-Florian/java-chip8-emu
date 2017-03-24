@@ -21,6 +21,8 @@ public class IO extends Befehl {
 
     @Override
     public void ausfuehren(Prozessor p) {
+        if (operation == null) return;
+
         switch (operation) {
             case DT_ABFRAGEN:
                 p.regVSetzen(register, p.regDTGeben());

@@ -24,7 +24,7 @@ public class Sprung extends Befehl {
         if (verschobenUmV0)
             addr += p.regVGeben(0);
 
-        p.springenZu(addr);
+        p.springenZu((short) (addr - 2));
     }
 
     @Override

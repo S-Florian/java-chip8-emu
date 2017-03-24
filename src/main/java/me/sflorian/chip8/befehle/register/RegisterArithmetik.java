@@ -17,6 +17,8 @@ public class RegisterArithmetik extends Befehl {
 
     @Override
     public void ausfuehren(Prozessor p) {
+        if (operator == null) return;
+
         switch (operator) {
             case ZUWEISEN:
                 p.regVSetzen(registerA, p.regVGeben(registerB));

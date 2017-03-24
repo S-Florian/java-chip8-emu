@@ -131,8 +131,7 @@ public class Prozessor {
 
     public short naechstenOpCodeGeben() {
         byte[] opBytes = mem.multiPeek(PC, 2);
-        short op = (short) (((opBytes[0] & 0xFF) << 8) | (opBytes[1] & 0xFF));
-        return op;
+        return (short) (((opBytes[0] & 0xFF) << 8) | (opBytes[1] & 0xFF));
     }
 
     public Befehl naechstenBefehlGeben() {

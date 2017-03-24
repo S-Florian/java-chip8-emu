@@ -21,6 +21,8 @@ public class VerzweigungKonstante extends Befehl {
 
     @Override
     public void ausfuehren(Prozessor p) {
+        if (bedingung == null) return;
+
         byte a = p.regVGeben(register);
         byte b = wert;
 

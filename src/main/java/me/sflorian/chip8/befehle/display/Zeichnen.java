@@ -32,22 +32,23 @@ public class Zeichnen extends Befehl {
 
         int hoehe = this.hoehe & 0x000F;
 
+        p.regVSetzen(0xF, (byte) 0);
+
         for (int y = 0; y < hoehe; ++y) {
             int reihe = mem.peek(p.regIGeben() + y);
 
             for (int x = 0; x < 8; ++x) {
-                if ((reihe & 0x80) > 0) {
+                if ((reihe & (0x80 >> x)) != 0) {
                     int ix = (px + x) % DISPLAY_BREITE;
                     int iy = (py + y) % DISPLAY_HOEHE;
 
                     boolean pixel = d.pixelGeben(ix, iy);
-                    boolean neuerPixel = !pixel;
-                    d.pixelSetzen(ix, iy, neuerPixel);
 
-                    p.regVSetzen(0xF, (byte)1);
+                    if (pixel)
+                        p.regVSetzen(0xF, (byte) 1);
+
+                    d.pixelSetzen(ix, iy, !pixel);
                 }
-
-                reihe <<= 1;
             }
         }
     }

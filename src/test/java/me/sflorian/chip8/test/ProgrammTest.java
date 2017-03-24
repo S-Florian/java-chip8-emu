@@ -103,13 +103,19 @@ public class ProgrammTest {
     @Test
     public void sprungVerschobenTest() {
         byte[] programm = new ProgrammBuilder()
-            .mit(new RegisterSetzen(0x0, (byte)20))
-            .mit(new Sprung((short) 30, true))
+            .mit(new RegisterSetzen(0x0, (byte)0x65))
+            .mit(new RegisterSetzen(0x1, (byte)0xAA))
+            .mit(new RegisterSetzen(0x2, (byte)0x00))
+            .mit(new RegisterSetzen(0x3, (byte)0x00))
+            .mit(new AddresseSetzen((short) (0x200 + 80)))
+            .mit(new IO(0x1, IOOperation.AS_SPEICHERN))
+            .mit(new RegisterSetzen(0x0, (byte)80))
+            .mit(new Sprung((short) 0x200, true))
             .erstellen();
 
         Prozessor p = ausfuehren(programm);
 
-        assertEquals((short)52, p.regPCGeben());
+        assertEquals(0xAA, (int) p.regVGeben(0x5) & 0xFF);
     }
 
     @Test

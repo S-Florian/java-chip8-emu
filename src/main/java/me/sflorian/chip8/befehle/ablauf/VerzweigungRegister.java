@@ -23,6 +23,8 @@ public class VerzweigungRegister extends Befehl {
 
     @Override
     public void ausfuehren(Prozessor p) {
+        if (bedingung == null) return;
+
         byte a = p.regVGeben(registerA);
         byte b = p.regVGeben(registerB);
 
