@@ -1,12 +1,17 @@
-package me.sflorian.chip8.befehle.io;
+package me.sflorian.chip8.befehle.display;
 
+import me.sflorian.chip8.Display;
 import me.sflorian.chip8.Prozessor;
 import me.sflorian.chip8.befehle.Befehl;
 
-public class BildschirmLoeschen extends Befehl {
+public class DisplayLoeschen extends Befehl {
     @Override
     public void ausfuehren(Prozessor prozessor) {
-        // TODO: Bildschirm löschen
+        Display d = prozessor.displayGeben();
+
+        if (d != null) {
+            d.loeschen();
+        }
     }
 
     @Override

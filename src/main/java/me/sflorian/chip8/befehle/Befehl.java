@@ -6,7 +6,7 @@ import me.sflorian.chip8.befehle.display.Zeichnen;
 import me.sflorian.chip8.befehle.helfer.Bedingung;
 import me.sflorian.chip8.befehle.helfer.IOOperation;
 import me.sflorian.chip8.befehle.helfer.Operator;
-import me.sflorian.chip8.befehle.io.BildschirmLoeschen;
+import me.sflorian.chip8.befehle.display.DisplayLoeschen;
 import me.sflorian.chip8.befehle.io.IO;
 import me.sflorian.chip8.befehle.io.Zufallszahl;
 import me.sflorian.chip8.befehle.register.AddresseSetzen;
@@ -23,7 +23,7 @@ public abstract class Befehl {
     public static Befehl dekodieren(short op) {
         switch (op) {
             case 0x0000: return new Stopp();
-            case 0x00E0: return new BildschirmLoeschen();
+            case 0x00E0: return new DisplayLoeschen();
             case 0x00EE: return new Rueckkehren();
         }
 
