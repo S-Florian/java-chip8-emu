@@ -42,6 +42,9 @@ public class VerzweigungKonstante extends Befehl {
 
     @Override
     public short enkodieren() {
+        if (bedingung == null)
+            return 0x0000;
+
         int i;
 
         switch (bedingung) {
@@ -62,6 +65,7 @@ public class VerzweigungKonstante extends Befehl {
 
     @Override
     public String alsAssembly() {
-        return String.format("%s V%1X, %d", bedingung.nameGeben(), register, (int)wert & 0xFF);
+        String name = bedingung != null ? bedingung.nameGeben() : "SKIP";
+        return String.format("%s V%1X, %d", name, register, (int)wert & 0xFF);
     }
 }

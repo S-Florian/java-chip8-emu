@@ -76,11 +76,15 @@ public class IO extends Befehl {
 
     @Override
     public short enkodieren() {
+        if (operation == null)
+            return 0x0000;
+
         return EnkodierungsHelfer._X__(0xF, (byte)register, operation.nummerGeben());
     }
 
     @Override
     public String alsAssembly() {
-        return String.format(operation.asmFormatGeben(), register);
+        String asmFormat = operation != null ? operation.asmFormatGeben() : "IO V%01X";
+        return String.format(asmFormat, register);
     }
 }

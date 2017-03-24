@@ -44,6 +44,9 @@ public class VerzweigungRegister extends Befehl {
 
     @Override
     public short enkodieren() {
+        if (bedingung == null)
+            return 0x0000;
+
         int i;
 
         switch (bedingung) {
@@ -64,6 +67,7 @@ public class VerzweigungRegister extends Befehl {
 
     @Override
     public String alsAssembly() {
-        return String.format("%s V%1X, V%1X", bedingung.nameGeben(), registerA, registerB);
+        String name = bedingung != null ? bedingung.nameGeben() : "SKIPR";
+        return String.format("%s V%1X, V%1X", name, registerA, registerB);
     }
 }

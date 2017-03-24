@@ -70,12 +70,14 @@ public class RegisterArithmetik extends Befehl {
 
     @Override
     public String alsAssembly() {
+        if (operator == null)
+            return String.format("REGAR V%1X, V%1X", registerA, registerB);
+
         switch (operator) {
             case SHIFTL_1: return String.format("SHL V%1X", registerA);
             case SHIFTR_1: return String.format("SHR V%1X", registerB);
             default:
                 return String.format("%s V%1X, V%1X", operator.nameGeben(), registerA, registerB);
         }
-
     }
 }
