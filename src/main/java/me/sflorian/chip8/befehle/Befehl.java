@@ -17,7 +17,7 @@ import me.sflorian.chip8.befehle.register.RegisterSetzen;
 import static me.sflorian.chip8.befehle.helfer.DekodierungsHelfer.*;
 
 /**
- * Repräsentiert eine CPU-Befehl.
+ * Repräsentiert einen CPU-Befehl.
  */
 public abstract class Befehl {
     public static Befehl dekodieren(short op) {
@@ -60,9 +60,7 @@ public abstract class Befehl {
 
     @Override
     public String toString() {
-        return String.format("%s => %s",
-                getClass().getSimpleName(),
-                "0x" + Integer.toHexString(enkodieren()));
+        return String.format("0x%04x => %s", enkodieren(), alsAssembly());
     }
 
 }
