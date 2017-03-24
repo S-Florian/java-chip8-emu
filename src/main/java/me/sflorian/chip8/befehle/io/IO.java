@@ -2,6 +2,7 @@ package me.sflorian.chip8.befehle.io;
 
 import me.sflorian.chip8.Arbeitsspeicher;
 import me.sflorian.chip8.Prozessor;
+import me.sflorian.chip8.Zahlen;
 import me.sflorian.chip8.befehle.Befehl;
 import me.sflorian.chip8.befehle.helfer.EnkodierungsHelfer;
 import me.sflorian.chip8.befehle.helfer.IOOperation;
@@ -41,9 +42,11 @@ public class IO extends Befehl {
                 p.regISetzen((short) (p.regIGeben() + p.regVGeben(register)));
                 break;
 
-            case BUCHSTABE_IN_I:
-                // TODO: Implementieren.
+            case ZAHL_IN_I: {
+                int x = (int) p.regVGeben(register) & 0xFF;
+                p.regISetzen((short) (x * Zahlen.ZAHL_HOEHE));
                 break;
+            }
 
             case BCD_IN_I: {
                 int x = (int) p.regVGeben(register) & 0xFF;

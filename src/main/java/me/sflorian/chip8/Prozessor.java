@@ -28,6 +28,8 @@ public class Prozessor {
         mem = arbeitsspeicher;
 
         this.display = display;
+
+        zahlenLaden();
     }
 
     public Prozessor(Arbeitsspeicher arbeitsspeicher) {
@@ -36,6 +38,16 @@ public class Prozessor {
 
     public static boolean istGueltigerRegisterIndex(int i) {
         return i >= 0 && i < Prozessor.CHIP8_ANZAHL_V_REGISTER;
+    }
+
+    private void zahlenLaden() {
+        byte[] bytes = new byte[Zahlen.ZAHLEN_BLOCK.length];
+
+        for (int i = 0; i < bytes.length; ++i) {
+            bytes[i] = (byte)Zahlen.ZAHLEN_BLOCK[i];
+        }
+
+        mem.multiPoke(0x00, bytes);
     }
 
     public void programmLaden(byte[] programm) {
