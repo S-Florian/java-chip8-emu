@@ -7,8 +7,24 @@ import javax.swing.*;
 import java.io.File;
 import java.io.FileInputStream;
 
+import static javax.swing.JOptionPane.*;
+
 public class Chip8 {
-    private static void emulatorStarten(File datei) {
+    private static boolean emulatorStarten(File datei) {
+        byte[] programm;
+
+        try (FileInputStream fis = new FileInputStream(datei)) {
+            programm = ProgrammBuilder.laden(fis);
+        } catch (Exception e) {
+            JOptionPane.showMessageDialog(null, "Konnte Datei nicht laden:\n" + e.getLocalizedMessage(), "Fehler", ERROR_MESSAGE);
+            return false;
+        }
+
+        if (programm == null) {
+            JOptionPane.showMessageDialog(null, "Diese CHIP-8 Datei ist korrupt!", "Fehler", ERROR_MESSAGE);
+            return false;
+        }
+
         EmulatorFenster fenster = new EmulatorFenster();
         fenster.setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
         fenster.setLocationRelativeTo(null);
@@ -19,19 +35,11 @@ public class Chip8 {
         EmulatorDisplay display = fenster.displayGeben();
         Prozessor p = new Prozessor(new Arbeitsspeicher(), display);
 
-        byte[] programm;
-
-        try (FileInputStream fis = new FileInputStream(datei)) {
-            programm = ProgrammBuilder.laden(fis);
-        } catch (Exception e) {
-            programm = new byte[] { 0x00, 0x00 };
-            e.printStackTrace();
-        }
-
         p.programmLaden(programm);
         p.programmAusfuehren();
 
         fenster.setTitle(String.format(EmulatorFenster.TITEL_NACHRICHT, "Ende"));
+        return true;
     }
 
     public static void main(String[] args) {
@@ -44,12 +52,7 @@ public class Chip8 {
         String dateiname = args[0];
         File datei = new File(dateiname);
 
-        if (!datei.exists()) {
-            System.err.println(String.format("Die Datei \"%s\" gibt es nicht!", dateiname));
+        if (!emulatorStarten(datei))
             System.exit(1);
-            return;
-        }
-
-        emulatorStarten(datei);
     }
 }

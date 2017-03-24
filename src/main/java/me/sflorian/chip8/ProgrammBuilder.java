@@ -19,7 +19,7 @@ public class ProgrammBuilder {
     }
 
     public static byte[] laden(InputStream stream) throws IOException {
-        byte[] programm = null;
+        byte[] programm;
 
         try (DataInputStream dis = new DataInputStream(stream)) {
             int groesse = dis.available();
@@ -27,7 +27,7 @@ public class ProgrammBuilder {
             if (groesse % 2 != 0) {
                 // Ein Befehl ist 2 bytes groß. D.h. wenn die Datei nicht in byte-Paare aufteilbar ist,
                 // dann ist sie ungültig.
-                return new byte[] { 0x0, 0x0 };
+                return null;
             }
 
             programm = new byte[groesse];
