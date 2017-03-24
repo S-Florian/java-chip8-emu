@@ -1,4 +1,4 @@
-package me.sflorian.chip8.befehle.display;
+package me.sflorian.chip8.befehle.io;
 
 import me.sflorian.chip8.Arbeitsspeicher;
 import me.sflorian.chip8.Display;
@@ -51,7 +51,7 @@ public class Zeichnen extends Befehl {
                 }
             }
         }
-        
+
         d.anzeigen();
     }
 

@@ -1,4 +1,4 @@
-package me.sflorian.chip8.befehle.display;
+package me.sflorian.chip8.befehle.io;
 
 import me.sflorian.chip8.Display;
 import me.sflorian.chip8.Prozessor;

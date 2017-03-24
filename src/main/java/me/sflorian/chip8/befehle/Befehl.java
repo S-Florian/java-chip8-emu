@@ -2,11 +2,11 @@ package me.sflorian.chip8.befehle;
 
 import me.sflorian.chip8.Prozessor;
 import me.sflorian.chip8.befehle.ablauf.*;
-import me.sflorian.chip8.befehle.display.Zeichnen;
+import me.sflorian.chip8.befehle.io.Zeichnen;
 import me.sflorian.chip8.befehle.helfer.Bedingung;
 import me.sflorian.chip8.befehle.helfer.IOOperation;
 import me.sflorian.chip8.befehle.helfer.Operator;
-import me.sflorian.chip8.befehle.display.DisplayLoeschen;
+import me.sflorian.chip8.befehle.io.DisplayLoeschen;
 import me.sflorian.chip8.befehle.io.IO;
 import me.sflorian.chip8.befehle.io.Zufallszahl;
 import me.sflorian.chip8.befehle.register.AddresseSetzen;
