@@ -6,4 +6,6 @@ public interface Display {
     void pixelSetzen(int x, int y, boolean weiss);
 
     boolean pixelGeben(int x, int y);
+
+    void anzeigen();
 }

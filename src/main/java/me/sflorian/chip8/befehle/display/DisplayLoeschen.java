@@ -9,8 +9,10 @@ public class DisplayLoeschen extends Befehl {
     public void ausfuehren(Prozessor prozessor) {
         Display d = prozessor.displayGeben();
 
-        if (d != null)
+        if (d != null) {
             d.loeschen();
+            d.anzeigen();
+        }
     }
 
     @Override

@@ -49,4 +49,9 @@ public class EmulatorDisplay extends JComponent implements Display {
     public boolean pixelGeben(int x, int y) {
         return pixel[y][x];
     }
+
+    @Override
+    public void anzeigen() {
+        repaint();
+    }
 }

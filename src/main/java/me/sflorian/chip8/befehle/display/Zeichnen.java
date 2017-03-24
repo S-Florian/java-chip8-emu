@@ -32,7 +32,7 @@ public class Zeichnen extends Befehl {
 
         int hoehe = this.hoehe & 0x000F;
 
-        p.regVSetzen(0xF, (byte) 0);
+        boolean aenderung = false;
 
         for (int y = 0; y < hoehe; ++y) {
             int reihe = mem.peek(p.regIGeben() + y);
@@ -45,11 +45,18 @@ public class Zeichnen extends Befehl {
                     boolean pixel = d.pixelGeben(ix, iy);
 
                     if (pixel)
-                        p.regVSetzen(0xF, (byte) 1);
+                        aenderung = true;
 
                     d.pixelSetzen(ix, iy, !pixel);
                 }
             }
+        }
+
+        p.regVSetzen(0xF, (byte) 0);
+
+        if (aenderung) {
+            d.anzeigen();
+            p.regVSetzen(0xF, (byte) 1);
         }
     }
 

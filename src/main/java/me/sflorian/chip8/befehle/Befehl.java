@@ -60,7 +60,7 @@ public abstract class Befehl {
 
     @Override
     public String toString() {
-        return String.format("0x%04x => %s", enkodieren(), alsAssembly());
+        return String.format("%s (0x%04X)", alsAssembly(), enkodieren());
     }
 
 }

@@ -70,6 +70,7 @@ public class Prozessor {
         if (befehl == null || befehl instanceof Stopp)
             return false;
 
+        System.out.println(String.format("%04X: %s", PC, befehl.toString()));
         befehl.ausfuehren(this);
         return true;
     }
