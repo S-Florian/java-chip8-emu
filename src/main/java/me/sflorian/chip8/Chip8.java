@@ -22,7 +22,7 @@ public class Chip8 {
         byte[] programm;
 
         try (FileInputStream fis = new FileInputStream(datei)) {
-            programm = new ProgrammBuilder().laden(fis).erstellen();
+            programm = ProgrammBuilder.laden(fis);
         } catch (Exception e) {
             programm = new byte[] { 0x00, 0x00 };
             e.printStackTrace();

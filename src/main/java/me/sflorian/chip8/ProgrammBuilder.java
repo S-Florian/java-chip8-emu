@@ -18,26 +18,32 @@ public class ProgrammBuilder {
         return this;
     }
 
-    public ProgrammBuilder laden(InputStream stream) throws IOException {
+    public static byte[] laden(InputStream stream) throws IOException {
+        byte[] programm = null;
+
         try (DataInputStream dis = new DataInputStream(stream)) {
-            if (dis.available() % 2 != 0) {
+            int groesse = dis.available();
+
+            if (groesse % 2 != 0) {
                 // Ein Befehl ist 2 bytes groß. D.h. wenn die Datei nicht in byte-Paare aufteilbar ist,
                 // dann ist sie ungültig.
-                return this;
+                return new byte[] { 0x0, 0x0 };
             }
 
-            while (dis.available() > 0) {
-                short op = dis.readShort();
-                Befehl befehl = Befehl.dekodieren(op);
+            programm = new byte[groesse];
 
-                if (befehl != null) {
-                    befehle.add(befehl);
-                    befehlAnzahl++;
-                }
+            int i = 0;
+
+            while (dis.available() > 0) {
+                byte b1 = dis.readByte();
+                byte b2 = dis.readByte();
+
+                programm[i++] = b1;
+                programm[i++] = b2;
             }
         }
 
-        return this;
+        return programm;
     }
 
     public byte[] erstellen() {
