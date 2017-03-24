@@ -4,6 +4,7 @@ import me.sflorian.chip8.benutzer.EmulatorDisplay;
 import me.sflorian.chip8.benutzer.EmulatorFenster;
 
 import javax.swing.*;
+import javax.swing.filechooser.FileNameExtensionFilter;
 import java.io.File;
 import java.io.FileInputStream;
 
@@ -42,15 +43,33 @@ public class Chip8 {
         return true;
     }
 
+    private static File ch8DateiOeffnen() {
+        JFileChooser chooser = new JFileChooser(System.getProperty("user.dir"));
+        chooser.setAcceptAllFileFilterUsed(true);
+        chooser.setFileFilter(new FileNameExtensionFilter("CHIP-8 ROMs", "ch8", "chip8"));
+        chooser.setMultiSelectionEnabled(false);
+        chooser.showOpenDialog(null);
+
+        return chooser.getSelectedFile();
+    }
+
     public static void main(String[] args) {
-        if (args.length < 1) {
-            System.err.println("Es wurde keine *.ch8 Datei angegeben!");
-            System.exit(1);
-            return;
+        try {
+            UIManager.setLookAndFeel(UIManager.getSystemLookAndFeelClassName());
+        } catch (Exception e) {
+            e.printStackTrace();
         }
 
-        String dateiname = args[0];
-        File datei = new File(dateiname);
+        File datei;
+
+        if (args.length < 1) {
+            datei = ch8DateiOeffnen();
+
+            if (datei == null)
+                return;
+        } else {
+            datei = new File(args[0]);
+        }
 
         if (!emulatorStarten(datei))
             System.exit(1);

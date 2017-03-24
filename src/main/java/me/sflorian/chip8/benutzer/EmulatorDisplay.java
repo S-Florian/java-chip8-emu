@@ -22,6 +22,7 @@ public class EmulatorDisplay extends JComponent implements Display {
     @Override
     protected void paintComponent(Graphics g) {
         g.setColor(Color.BLACK);
+        g.fillRect(0, 0, getWidth(), getHeight());
 
         for (int y = 0; y < pixel.length; ++y) {
             for (int x = 0; x < pixel[y].length; ++x) {
