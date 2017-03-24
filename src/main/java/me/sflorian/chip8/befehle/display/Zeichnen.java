@@ -10,12 +10,12 @@ import me.sflorian.chip8.befehle.helfer.EnkodierungsHelfer;
 import static me.sflorian.chip8.DisplayKonstanten.*;
 
 public class Zeichnen extends Befehl {
-    private final int x, y;
+    private final int registerX, registerY;
     private final int hoehe;
 
-    public Zeichnen(int x, int y, int hoehe) {
-        this.x = x;
-        this.y = y;
+    public Zeichnen(int registerX, int registerY, int hoehe) {
+        this.registerX = registerX;
+        this.registerY = registerY;
         this.hoehe = hoehe;
     }
 
@@ -28,6 +28,9 @@ public class Zeichnen extends Befehl {
 
         Arbeitsspeicher mem = p.arbeitsspeicherGeben();
 
+        int px = (int) p.regVGeben(registerX) & 0xFF;
+        int py = (int) p.regVGeben(registerY) & 0xFF;
+
         int hoehe = this.hoehe & 0x000F;
 
         for (int y = 0; y < hoehe; ++y) {
@@ -35,8 +38,8 @@ public class Zeichnen extends Befehl {
 
             for (int x = 0; x < 8; ++x) {
                 if ((reihe & 0x80) > 0) {
-                    int ix = (this.x + x) % DISPLAY_BREITE;
-                    int iy = (this.y + y) % DISPLAY_HOEHE;
+                    int ix = (px + x) % DISPLAY_BREITE;
+                    int iy = (py + y) % DISPLAY_HOEHE;
 
                     boolean pixel = d.pixelGeben(ix, iy);
                     boolean neuerPixel = !pixel;
@@ -52,11 +55,11 @@ public class Zeichnen extends Befehl {
 
     @Override
     public short enkodieren() {
-        return EnkodierungsHelfer._XY_(0xD, (byte)x, (byte)y, hoehe);
+        return EnkodierungsHelfer._XY_(0xD, (byte)registerX, (byte)registerY, hoehe);
     }
 
     @Override
     public String alsAssembly() {
-        return String.format("DRW V%1X, V%1X, %d", x, y, hoehe);
+        return String.format("DRW V%1X, V%1X, %d", registerX, registerY, hoehe);
     }
 }
