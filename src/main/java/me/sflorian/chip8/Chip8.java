@@ -14,6 +14,8 @@ public class Chip8 {
         fenster.setLocationRelativeTo(null);
         fenster.setVisible(true);
 
+        fenster.setTitle(String.format(EmulatorFenster.TITEL_NACHRICHT, "Läuft"));
+
         EmulatorDisplay display = fenster.displayGeben();
         Prozessor p = new Prozessor(new Arbeitsspeicher(), display);
 
@@ -28,6 +30,8 @@ public class Chip8 {
 
         p.programmLaden(programm);
         p.programmAusfuehren();
+
+        fenster.setTitle(String.format(EmulatorFenster.TITEL_NACHRICHT, "Ende"));
     }
 
     public static void main(String[] args) {
