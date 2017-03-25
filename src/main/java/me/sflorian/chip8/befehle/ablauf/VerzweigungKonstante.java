@@ -4,6 +4,7 @@ import me.sflorian.chip8.Prozessor;
 import me.sflorian.chip8.befehle.Befehl;
 import me.sflorian.chip8.befehle.helfer.Bedingung;
 import me.sflorian.chip8.befehle.helfer.EnkodierungsHelfer;
+import me.sflorian.chip8.befehle.helfer.Verzweigung;
 
 public class VerzweigungKonstante extends Befehl {
     private final int register;
@@ -26,18 +27,7 @@ public class VerzweigungKonstante extends Befehl {
         byte a = p.regVGeben(register);
         byte b = wert;
 
-        switch (bedingung) {
-            case GLEICH:
-                if (a == b) p.weiter();
-                break;
-
-            case UNGLEICH:
-                if (a != b) p.weiter();
-                break;
-
-            default:
-                break;
-        }
+        Verzweigung.verarbeiten(p, a, b, bedingung);
     }
 
     @Override

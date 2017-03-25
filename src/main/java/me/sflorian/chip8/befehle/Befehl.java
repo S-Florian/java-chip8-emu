@@ -2,13 +2,10 @@ package me.sflorian.chip8.befehle;
 
 import me.sflorian.chip8.Prozessor;
 import me.sflorian.chip8.befehle.ablauf.*;
-import me.sflorian.chip8.befehle.io.Zeichnen;
+import me.sflorian.chip8.befehle.io.*;
 import me.sflorian.chip8.befehle.helfer.Bedingung;
 import me.sflorian.chip8.befehle.helfer.IOOperation;
 import me.sflorian.chip8.befehle.helfer.Operator;
-import me.sflorian.chip8.befehle.io.DisplayLoeschen;
-import me.sflorian.chip8.befehle.io.IO;
-import me.sflorian.chip8.befehle.io.Zufallszahl;
 import me.sflorian.chip8.befehle.register.AddresseSetzen;
 import me.sflorian.chip8.befehle.register.RegisterArithmetik;
 import me.sflorian.chip8.befehle.register.RegisterHinzufuegen;
@@ -41,6 +38,7 @@ public abstract class Befehl {
             case 0xB: return new Sprung(nb2(op), true);
             case 0xC: return new Zufallszahl(n2(op), b2(op));
             case 0xD: return new Zeichnen(n2(op), n3(op), n4(op));
+            case 0xE: return new VerzweigungTaste(n2(op), ((int) b2(op) & 0xFF) == 0x9E);
             case 0xF: return new IO(n2(op), IOOperation.dekodieren(b2(op)));
         }
 
