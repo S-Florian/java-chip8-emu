@@ -23,19 +23,26 @@ public class Prozessor {
     private byte ST = 0; // Sound-Timer
     private byte DT = 0; // Delay-Timer
 
+    // Kommunikation mit der Außenwelt
     private Display display;
+    private Lautsprecher lautsprecher;
 
-    public Prozessor(Arbeitsspeicher arbeitsspeicher, Display display) {
+    public Prozessor(Arbeitsspeicher arbeitsspeicher, Display display, Lautsprecher lautsprecher) {
         if (arbeitsspeicher == null) throw new IllegalArgumentException("arbeitsspeicher darf nicht null sein!");
         mem = arbeitsspeicher;
 
         this.display = display;
+        this.lautsprecher = lautsprecher;
 
         zahlenLaden();
     }
 
+    public Prozessor(Arbeitsspeicher arbeitsspeicher, Display display) {
+        this(arbeitsspeicher, display, null);
+    }
+
     public Prozessor(Arbeitsspeicher arbeitsspeicher) {
-        this(arbeitsspeicher, null);
+        this(arbeitsspeicher, null, null);
     }
 
     public static boolean istGueltigerRegisterIndex(int i) {
@@ -72,8 +79,21 @@ public class Prozessor {
         if (befehl == null || befehl instanceof Stopp)
             return false;
 
-        int dt = (int) DT & 0xFF;
-        DT = (byte) (Math.max(0, dt - 1) & 0xFF);
+        DT = (byte) Math.max(0, ((int) DT & 0xFF) - 1);
+
+        int st = (int) ST & 0xFF;
+
+        if (st > 0) {
+            ST = (byte) (st - 1);
+
+            if (lautsprecher != null && lautsprecher.kannTonAbspielen() && !lautsprecher.wirdAbgespielt())
+                lautsprecher.tonAbspielen();
+        } else if (st <= 0) {
+            ST = 0;
+
+            if (lautsprecher != null && lautsprecher.wirdAbgespielt())
+                lautsprecher.tonStoppen();
+        }
 
         System.out.println(String.format("%04X: %s", PC, befehl.toString()));
         befehl.ausfuehren(this);
