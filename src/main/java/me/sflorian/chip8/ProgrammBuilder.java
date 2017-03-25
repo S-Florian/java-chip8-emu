@@ -2,6 +2,7 @@ package me.sflorian.chip8;
 
 import me.sflorian.chip8.befehle.Befehl;
 
+import java.io.ByteArrayOutputStream;
 import java.io.DataInputStream;
 import java.io.IOException;
 import java.io.InputStream;
@@ -19,31 +20,16 @@ public class ProgrammBuilder {
     }
 
     public static byte[] laden(InputStream stream) throws IOException {
-        byte[] programm;
+        ByteArrayOutputStream bao = new ByteArrayOutputStream();
 
-        try (DataInputStream dis = new DataInputStream(stream)) {
-            int groesse = dis.available();
+        int gelesen;
+        byte[] puffer = new byte[512];
 
-            if (groesse % 2 != 0) {
-                // Ein Befehl ist 2 bytes groß. D.h. wenn die Datei nicht in byte-Paare aufteilbar ist,
-                // dann ist sie ungültig.
-                return null;
-            }
+        while ((gelesen = stream.read(puffer, 0, puffer.length)) != -1)
+            bao.write(puffer, 0, gelesen);
 
-            programm = new byte[groesse];
-
-            int i = 0;
-
-            while (dis.available() > 0) {
-                byte b1 = dis.readByte();
-                byte b2 = dis.readByte();
-
-                programm[i++] = b1;
-                programm[i++] = b2;
-            }
-        }
-
-        return programm;
+        bao.flush();
+        return bao.toByteArray();
     }
 
     public byte[] erstellen() {

@@ -17,6 +17,7 @@ public class Chip8 {
         try (FileInputStream fis = new FileInputStream(datei)) {
             programm = ProgrammBuilder.laden(fis);
         } catch (Exception e) {
+            e.printStackTrace();
             JOptionPane.showMessageDialog(null, "Konnte Datei nicht laden:\n" + e.getLocalizedMessage(), "Fehler", ERROR_MESSAGE);
             return false;
         }
