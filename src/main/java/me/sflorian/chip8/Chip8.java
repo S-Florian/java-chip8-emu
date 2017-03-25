@@ -5,6 +5,8 @@ import me.sflorian.chip8.benutzer.EmulatorFenster;
 
 import javax.swing.*;
 import javax.swing.filechooser.FileNameExtensionFilter;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 import java.io.File;
 import java.io.FileInputStream;
 
@@ -38,15 +40,20 @@ public class Chip8 {
         fenster.addKeyListener(display);
 
         try (Prozessor p = new Prozessor(new Arbeitsspeicher(), display)) {
+            fenster.prozessorSetzen(p);
             p.programmLaden(programm);
-            p.programmAusfuehren();
+
+            while (true) {
+                if (p.istGestoppt()) {
+                    p.programmAusfuehren();
+                }
+            }
         }
 
-        fenster.setTitle(String.format(EmulatorFenster.TITEL_NACHRICHT, "Ende"));
-        return true;
+        //fenster.setTitle(String.format(EmulatorFenster.TITEL_NACHRICHT, "Ende"));
     }
 
-    private static File ch8DateiOeffnen() {
+    public static File ch8DateiOeffnen() {
         JFileChooser chooser = new JFileChooser(System.getProperty("user.dir"));
         chooser.setAcceptAllFileFilterUsed(true);
         chooser.setFileFilter(new FileNameExtensionFilter("CHIP-8 ROMs", "ch8", "chip8"));
@@ -63,7 +70,7 @@ public class Chip8 {
             e.printStackTrace();
         }
 
-        File datei;
+        final File datei;
 
         if (args.length < 1) {
             datei = ch8DateiOeffnen();

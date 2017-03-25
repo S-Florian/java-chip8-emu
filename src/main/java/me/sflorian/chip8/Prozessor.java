@@ -4,7 +4,6 @@ import me.sflorian.chip8.befehle.Befehl;
 import me.sflorian.chip8.befehle.ablauf.Stopp;
 
 import java.io.Closeable;
-import java.io.IOException;
 
 /**
  * Enthält Register, Arbeitsspeicher und CPU.
@@ -12,8 +11,6 @@ import java.io.IOException;
 public class Prozessor implements EingabeListener, Closeable {
     public static final int CHIP8_AUFRUFSTAPEL_GROESSE = 16;
     public static final int CHIP8_ANZAHL_V_REGISTER = 16;
-
-    private static final int MS_PRO_ZYKLUS = 2;
 
     private Arbeitsspeicher mem;
     private short[] aufrufstapel = new short[CHIP8_AUFRUFSTAPEL_GROESSE];
@@ -31,6 +28,8 @@ public class Prozessor implements EingabeListener, Closeable {
     private Lautsprecher lautsprecher;
 
     private int tastendruckErwartetRegister = -1;
+    private int msProZyklus = 1000 / 240;
+    private boolean gestoppt = true;
 
     public Prozessor(Arbeitsspeicher arbeitsspeicher, Display display, Lautsprecher lautsprecher) {
         if (arbeitsspeicher == null) throw new IllegalArgumentException("arbeitsspeicher darf nicht null sein!");
@@ -131,20 +130,29 @@ public class Prozessor implements EingabeListener, Closeable {
     }
 
     public void programmAusfuehren() {
-        while (true) {
+        gestoppt = false;
+
+        while (!gestoppt) {
             long startZeit = System.currentTimeMillis();
 
             if (!istGueltigerRegisterIndex(tastendruckErwartetRegister)) {
-                if (!zyklus())
+                if (!zyklus()) {
+                    gestoppt = true;
                     return;
+                }
 
                 weiter();
             }
 
             try {
-                Thread.sleep(Math.max(0, startZeit + MS_PRO_ZYKLUS - System.currentTimeMillis()));
+                Thread.sleep(Math.max(0, startZeit + msProZyklus - System.currentTimeMillis()));
             } catch (InterruptedException ignored) {}
         }
+    }
+
+    public void programmStoppen() {
+        gestoppt = true;
+        PC = Arbeitsspeicher.CHIP8_AS_PROGRAMM_POSITION;
     }
 
     public boolean aufrufen(short addresse) {
@@ -213,6 +221,14 @@ public class Prozessor implements EingabeListener, Closeable {
 
     public Befehl naechstenBefehlGeben() {
         return Befehl.dekodieren(naechstenOpCodeGeben());
+    }
+
+    public boolean istGestoppt() {
+        return gestoppt;
+    }
+
+    public void msProZyklusSetzen(int ms) {
+        msProZyklus = ms;
     }
 
     public Arbeitsspeicher arbeitsspeicherGeben() {
