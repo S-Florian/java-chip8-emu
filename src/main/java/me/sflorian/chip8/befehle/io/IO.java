@@ -29,7 +29,7 @@ public class IO extends Befehl {
                 break;
 
             case TASTE_ABFRAGEN:
-                // TODO: Implementieren.
+                p.aufTasteWarten(register);
                 break;
 
             case DT_SETZEN:

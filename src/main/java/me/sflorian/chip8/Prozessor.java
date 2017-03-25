@@ -30,6 +30,8 @@ public class Prozessor implements EingabeListener, Closeable {
     private Display display;
     private Lautsprecher lautsprecher;
 
+    private int tastendruckErwartetRegister = -1;
+
     public Prozessor(Arbeitsspeicher arbeitsspeicher, Display display, Lautsprecher lautsprecher) {
         if (arbeitsspeicher == null) throw new IllegalArgumentException("arbeitsspeicher darf nicht null sein!");
         mem = arbeitsspeicher;
@@ -80,6 +82,13 @@ public class Prozessor implements EingabeListener, Closeable {
             PC = Arbeitsspeicher.CHIP8_AS_PROGRAMM_POSITION;
     }
 
+    public void aufTasteWarten(int register) {
+        if (!istGueltigerRegisterIndex(register))
+            return;
+
+        tastendruckErwartetRegister = register;
+    }
+
     /**
      * Führt einen Befehlszyklus aus, d.h. Befehl holen, dekodieren, ausführen.
      */
@@ -111,9 +120,15 @@ public class Prozessor implements EingabeListener, Closeable {
     }
 
     public void programmAusfuehren() {
-        while (zyklus()) {
+        while (true) {
             long startZeit = System.currentTimeMillis();
-            weiter();
+
+            if (!istGueltigerRegisterIndex(tastendruckErwartetRegister)) {
+                if (!zyklus())
+                    return;
+
+                weiter();
+            }
 
             try {
                 Thread.sleep(startZeit + MS_PRO_ZYKLUS - System.currentTimeMillis());
@@ -172,7 +187,10 @@ public class Prozessor implements EingabeListener, Closeable {
 
     @Override
     public void tasteGedrueckt(int taste) {
-        
+        if (istGueltigerRegisterIndex(tastendruckErwartetRegister)) {
+            regVSetzen(tastendruckErwartetRegister, (byte) taste);
+            tastendruckErwartetRegister = -1;
+        }
     }
 
     // Geben/Setzen Methoden
