@@ -10,6 +10,8 @@ public class Prozessor {
     public static final int CHIP8_AUFRUFSTAPEL_GROESSE = 16;
     public static final int CHIP8_ANZAHL_V_REGISTER = 16;
 
+    private static final int MS_PRO_ZYKLUS = 16;
+
     private Arbeitsspeicher mem;
     private short[] aufrufstapel = new short[CHIP8_AUFRUFSTAPEL_GROESSE];
 
@@ -70,13 +72,22 @@ public class Prozessor {
         if (befehl == null || befehl instanceof Stopp)
             return false;
 
+        DT = (byte) ((int) (Math.max(0, DT - 1) & 0xFF));
+
         System.out.println(String.format("%04X: %s", PC, befehl.toString()));
         befehl.ausfuehren(this);
         return true;
     }
 
     public void programmAusfuehren() {
-        while (zyklus()) weiter();
+        while (zyklus()) {
+            long startZeit = System.currentTimeMillis();
+            weiter();
+
+            try {
+                Thread.sleep(startZeit + MS_PRO_ZYKLUS - System.currentTimeMillis());
+            } catch (InterruptedException ignored) {}
+        }
     }
 
     public boolean aufrufen(short addresse) {
