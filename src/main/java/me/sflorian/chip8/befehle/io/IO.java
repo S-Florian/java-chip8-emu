@@ -2,10 +2,10 @@ package me.sflorian.chip8.befehle.io;
 
 import me.sflorian.chip8.Arbeitsspeicher;
 import me.sflorian.chip8.Prozessor;
-import me.sflorian.chip8.Zahlen;
 import me.sflorian.chip8.befehle.Befehl;
 import me.sflorian.chip8.befehle.helfer.EnkodierungsHelfer;
 import me.sflorian.chip8.befehle.helfer.IOOperation;
+import me.sflorian.chip8.helfer.Zahlen;
 
 public class IO extends Befehl {
     private final int register;

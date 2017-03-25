@@ -1,9 +1,10 @@
 package me.sflorian.chip8.test;
 
 import me.sflorian.chip8.Arbeitsspeicher;
-
 import org.junit.Test;
-import static org.junit.Assert.*;
+
+import static org.junit.Assert.assertArrayEquals;
+import static org.junit.Assert.assertEquals;
 
 public class ArbeitsspeicherTest {
     @Test

@@ -2,10 +2,10 @@ package me.sflorian.chip8.befehle;
 
 import me.sflorian.chip8.Prozessor;
 import me.sflorian.chip8.befehle.ablauf.*;
-import me.sflorian.chip8.befehle.io.*;
 import me.sflorian.chip8.befehle.helfer.Bedingung;
 import me.sflorian.chip8.befehle.helfer.IOOperation;
 import me.sflorian.chip8.befehle.helfer.Operator;
+import me.sflorian.chip8.befehle.io.*;
 import me.sflorian.chip8.befehle.register.AddresseSetzen;
 import me.sflorian.chip8.befehle.register.RegisterArithmetik;
 import me.sflorian.chip8.befehle.register.RegisterHinzufuegen;

@@ -1,10 +1,10 @@
 package me.sflorian.chip8.befehle.io;
 
-import me.sflorian.chip8.Display;
-import me.sflorian.chip8.Eingabe;
 import me.sflorian.chip8.Prozessor;
 import me.sflorian.chip8.befehle.Befehl;
 import me.sflorian.chip8.befehle.helfer.EnkodierungsHelfer;
+import me.sflorian.chip8.schnittstellen.Display;
+import me.sflorian.chip8.schnittstellen.Eingabe;
 
 public class VerzweigungTaste extends Befehl {
     private final int register;

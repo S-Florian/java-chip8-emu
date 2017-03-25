@@ -1,10 +1,7 @@
 package me.sflorian.chip8.test;
 
 import me.sflorian.chip8.Arbeitsspeicher;
-import me.sflorian.chip8.Disassembly;
-import me.sflorian.chip8.ProgrammBuilder;
 import me.sflorian.chip8.Prozessor;
-
 import me.sflorian.chip8.befehle.ablauf.*;
 import me.sflorian.chip8.befehle.helfer.Bedingung;
 import me.sflorian.chip8.befehle.helfer.IOOperation;
@@ -15,9 +12,12 @@ import me.sflorian.chip8.befehle.register.AddresseSetzen;
 import me.sflorian.chip8.befehle.register.RegisterArithmetik;
 import me.sflorian.chip8.befehle.register.RegisterHinzufuegen;
 import me.sflorian.chip8.befehle.register.RegisterSetzen;
+import me.sflorian.chip8.helfer.Disassembly;
+import me.sflorian.chip8.helfer.ProgrammBuilder;
 import org.junit.Test;
 
-import static org.junit.Assert.*;
+import static org.junit.Assert.assertArrayEquals;
+import static org.junit.Assert.assertEquals;
 
 public class ProgrammTest {
     private static Prozessor ausfuehren(byte[] programm) {

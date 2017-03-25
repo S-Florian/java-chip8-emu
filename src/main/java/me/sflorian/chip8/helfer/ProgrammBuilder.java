@@ -1,9 +1,8 @@
-package me.sflorian.chip8;
+package me.sflorian.chip8.helfer;
 
 import me.sflorian.chip8.befehle.Befehl;
 
 import java.io.ByteArrayOutputStream;
-import java.io.DataInputStream;
 import java.io.IOException;
 import java.io.InputStream;
 import java.util.LinkedList;

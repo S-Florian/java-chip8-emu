@@ -2,15 +2,14 @@ package me.sflorian.chip8;
 
 import me.sflorian.chip8.benutzer.EmulatorDisplay;
 import me.sflorian.chip8.benutzer.EmulatorFenster;
+import me.sflorian.chip8.helfer.ProgrammBuilder;
 
 import javax.swing.*;
 import javax.swing.filechooser.FileNameExtensionFilter;
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
 import java.io.File;
 import java.io.FileInputStream;
 
-import static javax.swing.JOptionPane.*;
+import static javax.swing.JOptionPane.ERROR_MESSAGE;
 
 public class Chip8 {
     private static boolean emulatorStarten(File datei) {

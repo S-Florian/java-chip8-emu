@@ -1,12 +1,13 @@
 package me.sflorian.chip8.befehle.io;
 
 import me.sflorian.chip8.Arbeitsspeicher;
-import me.sflorian.chip8.Display;
 import me.sflorian.chip8.Prozessor;
 import me.sflorian.chip8.befehle.Befehl;
 import me.sflorian.chip8.befehle.helfer.EnkodierungsHelfer;
+import me.sflorian.chip8.schnittstellen.Display;
 
-import static me.sflorian.chip8.DisplayKonstanten.*;
+import static me.sflorian.chip8.helfer.DisplayKonstanten.DISPLAY_BREITE;
+import static me.sflorian.chip8.helfer.DisplayKonstanten.DISPLAY_HOEHE;
 
 public class Zeichnen extends Befehl {
     private final int registerX, registerY;

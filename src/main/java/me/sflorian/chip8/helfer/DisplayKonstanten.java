@@ -1,4 +1,4 @@
-package me.sflorian.chip8;
+package me.sflorian.chip8.helfer;
 
 public class DisplayKonstanten {
     public static final int DISPLAY_BREITE = 64;

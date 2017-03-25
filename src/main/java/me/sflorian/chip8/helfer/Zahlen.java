@@ -1,4 +1,4 @@
-package me.sflorian.chip8;
+package me.sflorian.chip8.helfer;
 
 public class Zahlen {
     public static final int ZAHL_HOEHE = 5;

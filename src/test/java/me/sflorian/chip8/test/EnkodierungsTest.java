@@ -1,9 +1,9 @@
 package me.sflorian.chip8.test;
 
 import me.sflorian.chip8.befehle.helfer.EnkodierungsHelfer;
-
 import org.junit.Test;
-import static org.junit.Assert.*;
+
+import static org.junit.Assert.assertEquals;
 
 public class EnkodierungsTest {
     @Test

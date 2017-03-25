@@ -1,4 +1,4 @@
-package me.sflorian.chip8;
+package me.sflorian.chip8.helfer;
 
 import me.sflorian.chip8.befehle.Befehl;
 

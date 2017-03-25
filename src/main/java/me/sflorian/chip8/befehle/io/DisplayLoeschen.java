@@ -1,8 +1,8 @@
 package me.sflorian.chip8.befehle.io;
 
-import me.sflorian.chip8.Display;
 import me.sflorian.chip8.Prozessor;
 import me.sflorian.chip8.befehle.Befehl;
+import me.sflorian.chip8.schnittstellen.Display;
 
 public class DisplayLoeschen extends Befehl {
     @Override

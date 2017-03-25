@@ -1,4 +1,4 @@
-package me.sflorian.chip8;
+package me.sflorian.chip8.schnittstellen;
 
 public interface Display {
     void loeschen();

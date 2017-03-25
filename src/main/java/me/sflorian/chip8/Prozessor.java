@@ -2,6 +2,11 @@ package me.sflorian.chip8;
 
 import me.sflorian.chip8.befehle.Befehl;
 import me.sflorian.chip8.befehle.ablauf.Stopp;
+import me.sflorian.chip8.helfer.Zahlen;
+import me.sflorian.chip8.schnittstellen.Display;
+import me.sflorian.chip8.schnittstellen.Eingabe;
+import me.sflorian.chip8.schnittstellen.EingabeListener;
+import me.sflorian.chip8.schnittstellen.Lautsprecher;
 
 import java.io.Closeable;
 

@@ -1,8 +1,8 @@
 package me.sflorian.chip8.benutzer;
 
-import me.sflorian.chip8.Display;
-import me.sflorian.chip8.Eingabe;
-import me.sflorian.chip8.EingabeListener;
+import me.sflorian.chip8.schnittstellen.Display;
+import me.sflorian.chip8.schnittstellen.Eingabe;
+import me.sflorian.chip8.schnittstellen.EingabeListener;
 
 import javax.swing.*;
 import java.awt.*;
@@ -10,12 +10,12 @@ import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
 import java.util.HashMap;
 import java.util.LinkedList;
-import java.util.Map;
 import java.util.List;
+import java.util.Map;
 
 import static java.awt.event.KeyEvent.*;
-
-import static me.sflorian.chip8.DisplayKonstanten.*;
+import static me.sflorian.chip8.helfer.DisplayKonstanten.DISPLAY_BREITE;
+import static me.sflorian.chip8.helfer.DisplayKonstanten.DISPLAY_HOEHE;
 
 public class EmulatorDisplay extends JComponent implements Display, Eingabe, KeyListener {
     private static final Map<Integer, Integer> TASTEN_ZUORDNUNG = new HashMap<>();

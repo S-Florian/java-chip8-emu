@@ -2,9 +2,9 @@ package me.sflorian.chip8.test;
 
 import me.sflorian.chip8.Arbeitsspeicher;
 import me.sflorian.chip8.Prozessor;
-
 import org.junit.Test;
-import static org.junit.Assert.*;
+
+import static org.junit.Assert.assertEquals;
 
 public class ProzessorTest {
     @Test
