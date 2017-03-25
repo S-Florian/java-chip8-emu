@@ -72,7 +72,8 @@ public class Prozessor {
         if (befehl == null || befehl instanceof Stopp)
             return false;
 
-        DT = (byte) ((int) (Math.max(0, DT - 1) & 0xFF));
+        int dt = (int) DT & 0xFF;
+        DT = (byte) (Math.max(0, dt - 1) & 0xFF);
 
         System.out.println(String.format("%04X: %s", PC, befehl.toString()));
         befehl.ausfuehren(this);
