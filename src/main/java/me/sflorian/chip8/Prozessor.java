@@ -13,7 +13,7 @@ public class Prozessor implements EingabeListener, Closeable {
     public static final int CHIP8_AUFRUFSTAPEL_GROESSE = 16;
     public static final int CHIP8_ANZAHL_V_REGISTER = 16;
 
-    private static final int MS_PRO_ZYKLUS = 16;
+    private static final int MS_PRO_ZYKLUS = 2;
 
     private Arbeitsspeicher mem;
     private short[] aufrufstapel = new short[CHIP8_AUFRUFSTAPEL_GROESSE];
@@ -89,6 +89,9 @@ public class Prozessor implements EingabeListener, Closeable {
         tastendruckErwartetRegister = register;
     }
 
+    private long letzterZyklus = System.currentTimeMillis();
+    private long dtTimer = 0;
+
     /**
      * Führt einen Befehlszyklus aus, d.h. Befehl holen, dekodieren, ausführen.
      */
@@ -98,21 +101,30 @@ public class Prozessor implements EingabeListener, Closeable {
         if (befehl == null || befehl instanceof Stopp)
             return false;
 
-        DT = (byte) Math.max(0, ((int) DT & 0xFF) - 1);
+        long dt = System.currentTimeMillis() - letzterZyklus;
+        dtTimer += dt;
 
-        int st = (int) ST & 0xFF;
+        if (dtTimer > 1000 / 60) {
+            dtTimer = 0;
 
-        if (st > 0) {
-            ST = (byte) (st - 1);
+            DT = (byte) Math.max(0, ((int) DT & 0xFF) - 1);
 
-            if (lautsprecher != null && lautsprecher.kannTonAbspielen() && !lautsprecher.wirdAbgespielt())
-                lautsprecher.tonAbspielen();
-        } else if (st <= 0) {
-            ST = 0;
+            int st = (int) ST & 0xFF;
 
-            if (lautsprecher != null && lautsprecher.wirdAbgespielt())
-                lautsprecher.tonStoppen();
+            if (st > 0) {
+                ST = (byte) (st - 1);
+
+                if (lautsprecher != null && lautsprecher.kannTonAbspielen() && !lautsprecher.wirdAbgespielt())
+                    lautsprecher.tonAbspielen();
+            } else if (st <= 0) {
+                ST = 0;
+
+                if (lautsprecher != null && lautsprecher.wirdAbgespielt())
+                    lautsprecher.tonStoppen();
+            }
         }
+
+        letzterZyklus = System.currentTimeMillis();
 
         System.out.println(String.format("%04X: %s", PC, befehl.toString()));
         befehl.ausfuehren(this);
@@ -131,7 +143,7 @@ public class Prozessor implements EingabeListener, Closeable {
             }
 
             try {
-                Thread.sleep(startZeit + MS_PRO_ZYKLUS - System.currentTimeMillis());
+                Thread.sleep(Math.max(0, startZeit + MS_PRO_ZYKLUS - System.currentTimeMillis()));
             } catch (InterruptedException ignored) {}
         }
     }
