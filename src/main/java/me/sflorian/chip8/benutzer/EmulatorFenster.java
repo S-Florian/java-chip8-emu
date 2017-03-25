@@ -1,14 +1,12 @@
 package me.sflorian.chip8.benutzer;
 
-import me.sflorian.chip8.Chip8;
-import me.sflorian.chip8.Display;
-import me.sflorian.chip8.ProgrammBuilder;
-import me.sflorian.chip8.Prozessor;
+import me.sflorian.chip8.*;
 
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.awt.event.KeyEvent;
 import java.awt.event.WindowEvent;
 import java.io.File;
 import java.io.FileInputStream;
@@ -26,7 +24,7 @@ public class EmulatorFenster extends JFrame implements ActionListener {
         60, 120, 240, 480, 960
     };
 
-    private static final int STANDARD_GESCHWINDIGKEIT = 240;
+    private static final int STANDARD_GESCHWINDIGKEIT = 480;
 
     private Prozessor prozessor;
 
@@ -40,6 +38,13 @@ public class EmulatorFenster extends JFrame implements ActionListener {
         {
             JMenu datei = new JMenu("Datei");
             {
+                JMenuItem neustart = new JMenuItem("Emulation neu starten");
+                neustart.setActionCommand("neustart");
+                neustart.addActionListener(this);
+                datei.add(neustart);
+
+                datei.addSeparator();
+
                 JMenuItem beenden = new JMenuItem("Beenden");
                 beenden.setActionCommand("beenden");
                 beenden.addActionListener(this);
@@ -94,6 +99,15 @@ public class EmulatorFenster extends JFrame implements ActionListener {
             case "beenden":
                 dispatchEvent(new WindowEvent(EmulatorFenster.this, WindowEvent.WINDOW_CLOSING));
                 break;
+
+            case "neustart": {
+                Display d = prozessor.displayGeben();
+                if (d != null)
+                    d.loeschen();
+
+                prozessor.regPCSetzen((short) Arbeitsspeicher.CHIP8_AS_PROGRAMM_POSITION);
+                break;
+            }
         }
     }
 }

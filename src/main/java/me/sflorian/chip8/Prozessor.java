@@ -267,7 +267,7 @@ public class Prozessor implements EingabeListener, Closeable {
         if (i < V.length && i >= 0) V[i] = j;
     }
 
-    public void regPCSetzen(byte i) {
+    public void regPCSetzen(short i) {
         PC = i;
     }
 
