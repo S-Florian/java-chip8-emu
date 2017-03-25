@@ -126,7 +126,6 @@ public class Prozessor implements EingabeListener, Closeable {
 
         letzterZyklus = System.currentTimeMillis();
 
-        System.out.println(String.format("%04X: %s", PC, befehl.toString()));
         befehl.ausfuehren(this);
         return true;
     }
