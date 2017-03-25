@@ -3,10 +3,13 @@ package me.sflorian.chip8;
 import me.sflorian.chip8.befehle.Befehl;
 import me.sflorian.chip8.befehle.ablauf.Stopp;
 
+import java.io.Closeable;
+import java.io.IOException;
+
 /**
  * Enthält Register, Arbeitsspeicher und CPU.
  */
-public class Prozessor {
+public class Prozessor implements EingabeListener, Closeable {
     public static final int CHIP8_AUFRUFSTAPEL_GROESSE = 16;
     public static final int CHIP8_ANZAHL_V_REGISTER = 16;
 
@@ -33,6 +36,13 @@ public class Prozessor {
 
         this.display = display;
         this.lautsprecher = lautsprecher;
+
+        if (display != null) {
+            Eingabe eingabe = display.eingabeGeben();
+
+            if (eingabe != null)
+                eingabe.eingabeListenerHinzufuegen(this);
+        }
 
         zahlenLaden();
     }
@@ -160,6 +170,11 @@ public class Prozessor {
         PC = addresse;
     }
 
+    @Override
+    public void tasteGedrueckt(int taste) {
+        
+    }
+
     // Geben/Setzen Methoden
 
     public short naechstenOpCodeGeben() {
@@ -225,5 +240,17 @@ public class Prozessor {
 
     public void regDTSetzen(byte i) {
         DT = i;
+    }
+
+    @Override
+    public void close() {
+        mem = null;
+
+        if (display != null) {
+            Eingabe eingabe = display.eingabeGeben();
+
+            if (eingabe != null)
+                eingabe.eingabeListenerEntfernen(this);
+        }
     }
 }

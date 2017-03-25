@@ -34,10 +34,12 @@ public class Chip8 {
         fenster.setTitle(String.format(EmulatorFenster.TITEL_NACHRICHT, "Läuft"));
 
         EmulatorDisplay display = fenster.displayGeben();
-        Prozessor p = new Prozessor(new Arbeitsspeicher(), display);
+        fenster.addKeyListener(display);
 
-        p.programmLaden(programm);
-        p.programmAusfuehren();
+        try (Prozessor p = new Prozessor(new Arbeitsspeicher(), display)) {
+            p.programmLaden(programm);
+            p.programmAusfuehren();
+        }
 
         fenster.setTitle(String.format(EmulatorFenster.TITEL_NACHRICHT, "Ende"));
         return true;

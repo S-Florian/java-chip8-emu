@@ -8,4 +8,6 @@ public interface Display {
     boolean pixelGeben(int x, int y);
 
     void anzeigen();
+
+    Eingabe eingabeGeben();
 }
