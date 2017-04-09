@@ -1,7 +1,9 @@
 .gradle/
 .idea/
 build/
+bin/
 *.ipr
 .classpath
 .project
+.settings/
 test/
